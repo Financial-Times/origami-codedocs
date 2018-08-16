@@ -1,0 +1,117 @@
+service: origami-codedocs-service
+
+frameworkVersion: ">=1.26.1"
+
+provider:
+  name: aws
+  stage: ${opt:stage, self:custom.defaultStage}
+  runtime: nodejs8.10
+  deploymentBucket: ${self:service}-artefacts-${self:provider.region}
+  region: ${opt:region, 'eu-west-1'}
+  role: arn:aws:iam::${self:custom.secret.AWS_ACCOUNT_ID}:role/ApplicationRoleFor_${self:service}
+  timeout: 30
+  versionFunctions: false
+  stackTags:
+    systemCode: ${self:service}
+    teamDL: origami.support@ft.com
+    environment: ${self:custom.tags.${self:provider.stage}.environment}
+  environment:
+    AWS_ACCESS_ID: ${self:custom.secret.AWS_ACCESS_KEY_ID}
+    AWS_SECRET: ${self:custom.secret.AWS_SECRET_ACCESS_KEY}
+    AWS_DOCLET_BUCKET: ${self:custom.additionalStacks.permanent.Resources.S3DocletBucket.Properties.BucketName}
+    NODE_ENV: ${self:custom.secret.NODE_ENV}
+    REPO_DATA_API_KEY: ${self:custom.secret.REPO_DATA_API_KEY}
+    REPO_DATA_API_SECRET: ${self:custom.secret.REPO_DATA_API_SECRET}
+
+plugins:
+  - serverless-offline
+  - serverless-apigw-binary
+  - serverless-apigwy-binary
+  - serverless-plugin-additional-stacks
+  - serverless-create-deployment-bucket-plugin
+
+custom:
+  additionalStacks:
+    permanent:
+      Resources:
+        S3DocletBucketPolicy:
+          Type: 'AWS::S3::BucketPolicy'
+          Properties:
+            Bucket:
+              Ref: "S3DocletBucket"
+            PolicyDocument:
+              Id: S3DocletBucketPolicy
+              Statement:
+                - Sid: AllowOnlyApplicationToPutObject
+                  Effect: Allow
+                  Principal:
+                    AWS:
+                    - ${self:provider.role}
+                  Action: s3:PutObject
+                  Resource:
+                  - arn:aws:s3:::${self:custom.additionalStacks.permanent.Resources.S3DocletBucket.Properties.BucketName}/*
+                - Sid: AllowOnlyApplicationToGetObject
+                  Effect: Allow
+                  Principal:
+                    AWS:
+                    - ${self:provider.role}
+                  Action: s3:PutObject
+                  Resource:
+                  - arn:aws:s3:::${self:custom.additionalStacks.permanent.Resources.S3DocletBucket.Properties.BucketName}/*
+        S3DocletBucket:
+          Type: 'AWS::S3::Bucket'
+          Properties:
+            BucketName: ${self:service}-${self:provider.stage}-doclets
+  apigwBinary:
+    types:
+      - '*/*'
+  defaultStage: dev
+  tags:
+    dev:
+      environment: t
+    prod:
+      environment: p
+  secret: ${file(./env.js)}
+  serverless-offline:
+    dontPrintOutput: false
+
+package:
+  exclude:
+    - .circleci/**
+    - .serverless/**
+    - .sonarlint/**
+    - .terraform/**
+    - .vscode/**
+    - fastly/**
+    - node_modules/aws-sdk/**
+    - test/integration/**
+    - .editorconfig
+    - .eslintrc.js
+    - .gitignore
+    - .prettierrc
+    - README.md
+    - package-lock.json
+    - terraform.tfstate
+    - terraform.tfstate.backup
+
+functions:
+  jsdoc:
+    handler: functions/jsdoc.handler
+    events:
+      - http:
+          path: jsdoc/{componentId}
+          method: get
+          request:
+            parameters:
+              paths:
+                componentId: true
+  sassdoc:
+    handler: functions/sassdoc.handler
+    events:
+      - http:
+          path: sassdoc/{componentId}
+          method: get
+          request:
+            parameters:
+              paths:
+                componentId: true
