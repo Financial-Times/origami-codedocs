@@ -115,3 +115,12 @@ functions:
             parameters:
               paths:
                 componentId: true
+  health:
+    handler: functions/health.handler
+    events:
+      - http:
+          method: get
+          path: __health
+      - http:
+          method: get
+          path: __gtg
