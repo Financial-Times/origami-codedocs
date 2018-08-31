@@ -5,8 +5,11 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "serverless offline start"
+    "test": "npm run test-unit && npm run test-integration",
+    "start": "serverless offline start",
+    "lint": "eslint .",
+    "test-unit": "nyc --reporter=lcov --reporter=text mocha test/unit/**/*.test.js --recursive",
+    "test-integration": "nyc --reporter=html --reporter=text mocha test/integration/*.test.js test/integration/**/*.test.js --timeout 5000 --slow 4000 --recursive --bail"
   },
   "license": "MIT",
   "engines": {
@@ -21,6 +24,8 @@
   },
   "devDependencies": {
     "dotenv-safe": "^6.0.0",
+    "eslint": "^4.19.1",
+    "mocha": "^3.5.3",
     "serverless": "^1.30.0",
     "serverless-apigw-binary": "^0.4.4",
     "serverless-apigwy-binary": "^0.1.0",

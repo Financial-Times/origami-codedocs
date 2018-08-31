@@ -1,15 +1,15 @@
-"use strict";
+'use strict';
 
-const path = require("path");
-const dotenvSafe = require("dotenv-safe");
+const path = require('path');
+const dotenvSafe = require('dotenv-safe');
 
 if (!process.env.NODE_ENV) {
-    process.env.NODE_ENV = "production";
+    process.env.NODE_ENV = 'production';
 }
 
 const env = dotenvSafe.config({
-    path: path.join(__dirname, "./.env"),
-    example: path.join(__dirname, "./env.example")
+    path: path.join(__dirname, './.env'),
+    example: path.join(__dirname, './env.example')
 }).parsed;
 
 module.exports = () => {
