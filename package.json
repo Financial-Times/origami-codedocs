@@ -26,6 +26,7 @@
     "dotenv-safe": "^6.0.0",
     "eslint": "^4.19.1",
     "mocha": "^3.5.3",
+    "nyc": "^13.0.1",
     "serverless": "^1.30.0",
     "serverless-apigw-binary": "^0.4.4",
     "serverless-apigwy-binary": "^0.1.0",
