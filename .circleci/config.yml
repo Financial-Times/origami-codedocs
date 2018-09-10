@@ -62,7 +62,6 @@ jobs:
       - checkout
       - *restore_npm_global_cache
       - *restore_npm_local_cache
-      - *npm_install
       - *lint
 
   unit_test:
@@ -71,7 +70,6 @@ jobs:
       - checkout
       - *restore_npm_global_cache
       - *restore_npm_local_cache
-      - *npm_install
       - *unit_test
 
   integration_test:
@@ -80,7 +78,6 @@ jobs:
       - checkout
       - *restore_npm_global_cache
       - *restore_npm_local_cache
-      - *npm_install
       - *integration_test
   
 workflows:
