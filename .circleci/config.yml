@@ -32,13 +32,18 @@ references:
   lint: &lint
     run:
       command: "npm run lint"
-      name: "Lint"
   unit_test: &unit_test
     run:
-      command: "npm run test-unit"
+      command: |
+        if [ -d test ]; then
+          npm run test-unit
+        fi
   integration_test: &integration_test
     run:
-      command: "npm run test-integration"
+      command: |
+        if [ -d test ]; then
+          npm run test-integration
+        fi
 
 jobs:
   install_dependencies:
