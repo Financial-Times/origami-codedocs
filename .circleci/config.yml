@@ -35,13 +35,13 @@ references:
   unit_test: &unit_test
     run:
       command: |
-        if [ -d test ]; then
+        if [ -d test/unit ]; then
           npm run test-unit
         fi
   integration_test: &integration_test
     run:
       command: |
-        if [ -d test ]; then
+        if [ -d test/integration ]; then
           npm run test-integration
         fi
 
@@ -79,7 +79,7 @@ jobs:
       - *restore_npm_global_cache
       - *restore_npm_local_cache
       - *integration_test
-  
+
 workflows:
   version: 2
   test:
@@ -87,7 +87,7 @@ workflows:
       - install_dependencies
       - lint:
           requires:
-            - install_dependencies           
+            - install_dependencies
       - unit_test:
           requires:
             - lint
