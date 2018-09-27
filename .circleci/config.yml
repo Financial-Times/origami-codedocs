@@ -44,6 +44,10 @@ references:
         if [ -d test/integration ]; then
           npm run test-integration
         fi
+  deploy_service_staging: &deploy_service_staging
+    run:
+      command: |
+        $(npm bin)/serverless deploy --conceal --stage dev --region eu-west-1
 
 jobs:
   install_dependencies:
@@ -76,9 +80,24 @@ jobs:
     <<: *circle_node_base
     steps:
       - checkout
+      - attach_workspace:
+          at: workspace
       - *restore_npm_global_cache
       - *restore_npm_local_cache
       - *integration_test
+
+  deploy_service_staging:
+    <<: *circle_node_base
+    steps:
+      - checkout
+      - *restore_npm_global_cache
+      - *restore_npm_local_cache
+      - *deploy_service_staging
+      - run: mkdir -p workspace
+      - persist_to_workspace:
+          root: workspace
+          paths:
+            -.dev-stack.yml
 
 workflows:
   version: 2
@@ -91,6 +110,9 @@ workflows:
       - unit_test:
           requires:
             - lint
-      - integration_test:
+      - deploy_service_staging:
           requires:
             - unit_test
+      - integration_test:
+          requires:
+            - deploy_service_staging
