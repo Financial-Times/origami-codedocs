@@ -1,3 +1,4 @@
+/* eslint-disable */
 module.exports = [
     {
         "comment": "/**\n * A global variable called 'foo'.\n * http://usejsdoc.org/tags-member.html\n * @type {number}\n */",
