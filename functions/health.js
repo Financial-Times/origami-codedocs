@@ -104,7 +104,7 @@ exports.handler = async (event) => {
         body: JSON.stringify(health),
         headers: {
             'Cache-Control': 'no-store, private',
-            'Content-Type': 'application/json;charset=UTF-8'
+            'Content-Type': 'application/json;charset=utf-8'
         }
     };
 };

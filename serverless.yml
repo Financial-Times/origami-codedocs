@@ -29,8 +29,11 @@ plugins:
   - serverless-apigwy-binary
   - serverless-plugin-additional-stacks
   - serverless-create-deployment-bucket-plugin
+  - serverless-stack-output
+  - serverless-s3-remover
 
 custom:
+  bucketName: ${self:service}-${self:provider.stage}-doclets
   additionalStacks:
     permanent:
       Resources:
@@ -61,7 +64,7 @@ custom:
         S3DocletBucket:
           Type: 'AWS::S3::Bucket'
           Properties:
-            BucketName: ${self:service}-${self:provider.stage}-doclets
+            BucketName: ${self:custom.bucketName}
   apigwBinary:
     types:
       - '*/*'
@@ -74,6 +77,11 @@ custom:
   secret: ${file(./env.js)}
   serverless-offline:
     dontPrintOutput: false
+  output:
+    file: ./.${self:provider.stage}-stack.yml
+  remover:
+     buckets:
+       - ${self:custom.bucketName}
 
 package:
   exclude:

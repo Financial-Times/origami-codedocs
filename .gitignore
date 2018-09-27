@@ -10,3 +10,4 @@ logs
 npm-debug.log*
 .npm
 .serverless
+.dev-stack.yml
