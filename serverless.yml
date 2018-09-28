@@ -31,6 +31,7 @@ plugins:
   - serverless-create-deployment-bucket-plugin
   - serverless-stack-output
   - serverless-s3-remover
+  - serverless-sentry
 
 custom:
   bucketName: ${self:service}-${self:provider.stage}-doclets
@@ -82,6 +83,17 @@ custom:
   remover:
      buckets:
        - ${self:custom.bucketName}
+  sentry:
+    dsn: ${env:SENTRY_DSN, self:custom.secret.SENTRY_DSN}
+    organization: ${env:SENTRY_ORGANISATION, self:custom.secret.SENTRY_ORGANISATION}
+    project: ${env:SENTRY_PROJECT, self:custom.secret.SENTRY_PROJECT}
+    authToken: ${env:SENTRY_AUTH_TOKEN, self:custom.secret.SENTRY_AUTH_TOKEN}
+    release:
+      version: ${opt:sentryVersion, 'git'}
+      refs:
+        - repository: ${opt:sentryRepository, 'financial-times/origami-codedocs-service'}
+          commit: ${opt:sentryCommit, self:custom.sentryDefaultCommit}
+  sentryDefaultCommit: ${env:CIRCLE_SHA1, "default"}
 
 package:
   exclude:

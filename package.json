@@ -20,8 +20,10 @@
     "decompress": "^4.2.0",
     "got": "^9.0.0",
     "jsdoc": "^3.5.5",
+    "raven": "^2.6.4",
     "sassdoc": "^2.5.0",
-    "serverless-s3-remover": "^0.6.0"
+    "serverless-s3-remover": "^0.6.0",
+    "serverless-sentry-lib": "^1.1.2"
   },
   "devDependencies": {
     "dotenv-safe": "^6.0.0",
@@ -33,7 +35,8 @@
     "serverless-apigwy-binary": "^0.1.0",
     "serverless-offline": "^3.25.7",
     "serverless-plugin-additional-stacks": "^1.2.0",
-    "supertest": "^3.1.0",
-    "serverless-stack-output": "^0.2.3"
+    "serverless-sentry": "^1.2.0",
+    "serverless-stack-output": "^0.2.3",
+    "supertest": "^3.1.0"
   }
 }

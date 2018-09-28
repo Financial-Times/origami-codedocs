@@ -3,6 +3,8 @@
 const got = require('got');
 const AWS = require('aws-sdk');
 const getRepo = require('../lib/get-repo');
+const Raven = require('raven');
+const RavenLambdaWrapper = require('serverless-sentry-lib');
 const env = process.env;
 
 const s3 = new AWS.S3({
@@ -53,7 +55,7 @@ const health = {
     ]
 };
 
-exports.handler = async (event) => {
+exports.handler = RavenLambdaWrapper.handler(Raven, async (event) => {
     // Get repo data (from the Origami Repo Data service)
     try {
         await getRepo(testComponent, testComponentVersion, 'js');
@@ -107,4 +109,4 @@ exports.handler = async (event) => {
             'Content-Type': 'application/json;charset=utf-8'
         }
     };
-};
+});
