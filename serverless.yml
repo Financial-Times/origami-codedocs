@@ -91,7 +91,8 @@ custom:
     release:
       version: ${opt:sentryVersion, 'git'}
       refs:
-        - commit: ${opt:sentryCommit, self:custom.sentryDefaultCommit}
+        - repository: ${opt:sentryRepository, 'financial-times/origami-codedocs-service'}
+          commit: ${opt:sentryCommit, self:custom.sentryDefaultCommit}
   sentryDefaultCommit: ${env:CIRCLE_SHA1, "default"}
 
 package:
