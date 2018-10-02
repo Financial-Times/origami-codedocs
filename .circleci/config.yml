@@ -140,21 +140,21 @@ workflows:
   test:
     jobs:
       - install_dependencies
-      # - lint:
-      #     requires:
-      #       - install_dependencies
-      # - unit_test:
-      #     requires:
-      #       - lint
-      # - deploy_service_staging:
-      #     requires:
-      #       - unit_test
-      # - integration_test:
-      #     requires:
-      #       - deploy_service_staging
-      - deploy_service_production:
+      - lint:
           requires:
             - install_dependencies
+      - unit_test:
+          requires:
+            - install_dependencies
+      - deploy_service_staging:
+          requires:
+            - unit_test
+      - integration_test:
+          requires:
+            - deploy_service_staging
+      - deploy_service_production:
+          requires:
+            - integration_test
           filters:
             branches:
               only:
