@@ -21,8 +21,8 @@ module.exports = () => {
         REPO_DATA_API_KEY: process.env.REPO_DATA_API_KEY || env.REPO_DATA_API_KEY,
         REPO_DATA_API_SECRET: process.env.REPO_DATA_API_SECRET || env.REPO_DATA_API_SECRET,
 
-        FASTLY: process.env.FASTLY || env.FASTLY,
-        FASTLY_SERVICE: process.env.FASTLY_SERVICE || env.FASTLY_SERVICE,
-        FASTLY_BACKEND_NAME: process.env.FASTLY_BACKEND_NAME || env.FASTLY_BACKEND_NAME
+        FASTLY_PROD: process.env.FASTLY_PROD || env.FASTLY_PROD,
+        FASTLY_SERVICE_PROD: process.env.FASTLY_SERVICE_PROD || env.FASTLY_SERVICE_PROD,
+        FASTLY_BACKEND_NAME_PROD: process.env.FASTLY_BACKEND_NAME_PROD || env.FASTLY_BACKEND_NAME_PROD
     };
 };

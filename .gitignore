@@ -11,3 +11,4 @@ npm-debug.log*
 .npm
 .serverless
 .dev-stack.yml
+.prod-stack.yml

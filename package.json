@@ -9,7 +9,8 @@
     "start": "serverless offline start",
     "lint": "eslint .",
     "test-unit": "mocha test/unit/**/*.test.js --recursive",
-    "test-integration": "sls s3remove && HOST=${HOST:-$(cat .dev-stack.yml | sed -n \"s/ServiceEndpoint: '\\(.*\\)'/\\1/p\")} mocha test/integration/*.test.js test/integration/**/*.test.js --timeout 5000 --slow 4000 --recursive --bail"
+    "test-integration": "sls s3remove && HOST=${HOST:-$(cat .dev-stack.yml | sed -n \"s/ServiceEndpoint: '\\(.*\\)'/\\1/p\")} mocha test/integration/*.test.js test/integration/**/*.test.js --timeout 5000 --slow 4000 --recursive --bail",
+    "update-fastly-prod": "HOST_PROD=${HOST_PROD:-$(cat .prod-stack.yml | sed -n \"s/ServiceEndpoint: '\\(.*\\)'/\\1/p\")} node ./lib/update-fastly-prod.js"
   },
   "license": "MIT",
   "engines": {
