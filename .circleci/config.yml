@@ -160,7 +160,6 @@ workflows:
             branches:
               only:
                 - master
-                - codedocs
       - update_fastly_production:
           requires:
             - deploy_service_production
@@ -168,4 +167,3 @@ workflows:
             branches:
               only:
                 - master
-                - codedocs
