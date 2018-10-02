@@ -148,6 +148,7 @@ workflows:
             - install_dependencies
       - deploy_service_staging:
           requires:
+            - lint
             - unit_test
       - integration_test:
           requires:
