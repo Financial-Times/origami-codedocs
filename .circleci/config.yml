@@ -120,7 +120,7 @@ jobs:
       - checkout
       - *restore_npm_global_cache
       - *restore_npm_local_cache
-      - *deploy_service_staging
+      - *deploy_service_production
       - persist_to_workspace:
           root: ./
           paths:
