@@ -153,8 +153,8 @@ workflows:
       #     requires:
       #       - deploy_service_staging
       - deploy_service_production:
-          # requires:
-            # - integration_test
+          requires:
+            - install_dependencies
           filters:
             branches:
               only:
