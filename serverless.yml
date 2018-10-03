@@ -1,4 +1,4 @@
-service: origami-codedocs-service
+service: origami-codedocs
 
 frameworkVersion: ">=1.26.1"
 
