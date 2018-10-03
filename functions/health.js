@@ -19,7 +19,7 @@ const testComponentVersion = 'v1.0.29';
 let gtg = true;
 const health = {
     schemaVersion: 1,
-    name: 'origami-codedocs-service',
+    name: 'origami-codedocs',
     description: 'Open API endpoint for generating raw, automated code documentation of Origami Components, including JSDoc and SassDoc.',
     checks: [
         {
