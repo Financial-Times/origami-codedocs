@@ -8,7 +8,7 @@ provider:
   runtime: nodejs8.10
   deploymentBucket: ${self:service}-artefacts-${self:provider.region}
   region: ${opt:region, 'eu-west-1'}
-  role: arn:aws:iam::${self:custom.secret.AWS_ACCOUNT_ID}:role/ApplicationRoleFor_${self:service}
+  role: arn:aws:iam::${opt:awsAccountId, self:custom.secret.AWS_ACCOUNT_ID}:role/ApplicationRoleFor_${self:service}
   timeout: 30
   versionFunctions: false
   stackTags:
@@ -16,12 +16,12 @@ provider:
     teamDL: origami.support@ft.com
     environment: ${self:custom.tags.${self:provider.stage}.environment}
   environment:
-    AWS_ACCESS_ID: ${self:custom.secret.AWS_ACCESS_KEY_ID}
-    AWS_SECRET: ${self:custom.secret.AWS_SECRET_ACCESS_KEY}
+    AWS_ACCESS_ID: ${opt:awsAccessKey, self:custom.secret.AWS_ACCESS_KEY_ID}
+    AWS_SECRET: ${opt:awsAccessSecret, self:custom.secret.AWS_SECRET_ACCESS_KEY}
     AWS_DOCLET_BUCKET: ${self:custom.additionalStacks.permanent.Resources.S3DocletBucket.Properties.BucketName}
     NODE_ENV: ${self:custom.secret.NODE_ENV}
-    REPO_DATA_API_KEY: ${self:custom.secret.REPO_DATA_API_KEY}
-    REPO_DATA_API_SECRET: ${self:custom.secret.REPO_DATA_API_SECRET}
+    REPO_DATA_API_KEY: ${opt:repoDataKey, self:custom.secret.REPO_DATA_API_KEY}
+    REPO_DATA_API_SECRET: ${opt:repoDataSecret, self:custom.secret.REPO_DATA_API_SECRET}
 
 plugins:
   - serverless-offline
@@ -84,10 +84,10 @@ custom:
      buckets:
        - ${self:custom.bucketName}
   sentry:
-    dsn: ${env:SENTRY_DSN, self:custom.secret.SENTRY_DSN}
-    organization: ${env:SENTRY_ORGANISATION, self:custom.secret.SENTRY_ORGANISATION}
-    project: ${env:SENTRY_PROJECT, self:custom.secret.SENTRY_PROJECT}
-    authToken: ${env:SENTRY_AUTH_TOKEN, self:custom.secret.SENTRY_AUTH_TOKEN}
+    dsn: ${opt:sentryDns, self:custom.secret.SENTRY_DSN}
+    organization: ${self:custom.secret.SENTRY_ORGANISATION}
+    project: ${opt:sentryProject, self:custom.secret.SENTRY_PROJECT}
+    authToken: ${opt:sentryAuthToken, self:custom.secret.SENTRY_AUTH_TOKEN}
 
 package:
   exclude:
