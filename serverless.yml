@@ -6,8 +6,6 @@ provider:
   name: aws
   stage: ${opt:stage, self:custom.defaultStage}
   runtime: nodejs8.10
-  apiKeys:
-    - ${self:custom.secret.CODEDOCS_API_KEY}
   deploymentBucket: ${self:service}-artefacts-${self:provider.region}
   region: ${opt:region, 'eu-west-1'}
   role: arn:aws:iam::${self:custom.secret.AWS_ACCOUNT_ID}:role/ApplicationRoleFor_${self:service}
