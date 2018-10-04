@@ -6,7 +6,7 @@ provider:
   name: aws
   stage: ${opt:stage, self:custom.defaultStage}
   runtime: nodejs8.10
-  deploymentBucket: ${self:service}-artefacts-${self:provider.stackTags.environment}
+  deploymentBucket: ${self:service}-artefacts-${self:provider.stage}
   region: ${opt:region, 'eu-west-1'}
   role: arn:aws:iam::${self:custom.secret.AWS_ACCOUNT_ID}:role/ApplicationRoleFor_${self:service}
   timeout: 30
