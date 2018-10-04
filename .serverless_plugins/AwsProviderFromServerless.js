@@ -4,8 +4,7 @@ const AWSProvider = require("./AwsProvider");
 
 const AwsProviderFromServerless = class AwsProviderFromServerless extends AWSProvider {
 	constructor(serverless) {
-		super();
-		this.serverless = serverless;
+		super(serverless);
 	}
 	get profile() {
 		return this.serverless.service.provider.profile;

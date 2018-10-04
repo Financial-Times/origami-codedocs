@@ -1,28 +1,26 @@
 "use strict";
 
-const AWS = require("aws-sdk");
+const AWS = require('aws-sdk');
 
-/**
- * One stop shop for getting AWS interface objects
- */
 const AWSProvider = class AWSProvider {
-	constructor() {
+	constructor(serverless) {
+		this.serverless = serverless;
 		this.s3 = function () {
+			const environment = serverless.service.provider.environment;
 			return new AWS.S3({
-				accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-				secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+				accessKeyId: environment['AWS_ACCESS_ID'],
+				secretAccessKey: environment['AWS_SECRET']
 			});
 		};
 	}
 
 	validate() {
 		const errors = [];
-
 		if (typeof this.region !== "string") {
-			errors.push(`Property: region must be a string.  Found ${typeof this.region}`);
+			errors.push(`Property: region must be a string. Found ${typeof this.region}`);
 		}
 		if (typeof this.stage !== "string") {
-			errors.push(`Property: stage must be a string.  Found ${typeof this.stage}`);
+			errors.push(`Property: stage must be a string. Found ${typeof this.stage}`);
 		}
 		if (errors.length > 0) {
 			const errMessage = "AwsConfigFromServerless: Error validating serverless config\n" + errors.join("\n");
