@@ -8,7 +8,7 @@ provider:
   runtime: nodejs8.10
   deploymentBucket: ${self:service}-artefacts-${self:provider.region}
   region: ${opt:region, 'eu-west-1'}
-  role: arn:aws:iam::${opt:awsAccountId, self:custom.secret.AWS_ACCOUNT_ID}:role/ApplicationRoleFor_${self:service}
+  role: arn:aws:iam::${self:custom.accountId}:role/ApplicationRoleFor_${self:service}
   timeout: 30
   versionFunctions: false
   stackTags:
@@ -34,6 +34,7 @@ plugins:
   - serverless-sentry
 
 custom:
+  accountId: ${opt:awsAccountId, self:custom.secret.AWS_ACCOUNT_ID}
   bucketName: ${self:service}-${self:provider.stage}-doclets
   additionalStacks:
     permanent:
