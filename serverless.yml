@@ -4,6 +4,8 @@ frameworkVersion: ">=1.26.1"
 
 provider:
   name: aws
+  memorySize: 256
+  timeout: 120
   stage: ${opt:stage, self:custom.defaultStage}
   runtime: nodejs8.10
   apiKeys:
@@ -11,7 +13,6 @@ provider:
   deploymentBucket: ${self:service}-artefacts-${self:provider.stage}
   region: ${opt:region, 'eu-west-1'}
   role: arn:aws:iam::${self:custom.secret.AWS_ACCOUNT_ID}:role/ApplicationRoleFor_${self:service}
-  timeout: 30
   versionFunctions: false
   stackTags:
     systemCode: ${self:service}
