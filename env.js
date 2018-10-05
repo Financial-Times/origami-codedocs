@@ -26,7 +26,7 @@ module.exports = () => {
         SENTRY_PROJECT: process.env.SENTRY_PROJECT || env.SENTRY_PROJECT,
         SENTRY_AUTH_TOKEN: process.env.SENTRY_AUTH_TOKEN || env.SENTRY_AUTH_TOKEN,
 
-        CODEDOCS_API_KEY: process.env.CODEDOCS_API_KEY || env.CODEDOCS_API_KEY,
+        CODEDOCS_API_KEY_NAME: process.env.CODEDOCS_API_KEY_NAME || env.CODEDOCS_API_KEY_NAME,
 
         FASTLY_PROD: process.env.FASTLY_PROD || env.FASTLY_PROD,
         FASTLY_SERVICE_PROD: process.env.FASTLY_SERVICE_PROD || env.FASTLY_SERVICE_PROD,

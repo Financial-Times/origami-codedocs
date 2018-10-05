@@ -6,6 +6,8 @@ provider:
   name: aws
   stage: ${opt:stage, self:custom.defaultStage}
   runtime: nodejs8.10
+  apiKeys:
+    - ${self:custom.secret.CODEDOCS_API_KEY_NAME}
   deploymentBucket: ${self:service}-artefacts-${self:provider.stage}
   region: ${opt:region, 'eu-west-1'}
   role: arn:aws:iam::${self:custom.secret.AWS_ACCOUNT_ID}:role/ApplicationRoleFor_${self:service}
@@ -113,6 +115,7 @@ functions:
     handler: functions/jsdoc.handler
     events:
       - http:
+          private: true
           path: jsdoc/{componentId}
           method: get
           request:
@@ -123,6 +126,7 @@ functions:
     handler: functions/sassdoc.handler
     events:
       - http:
+          private: true
           path: sassdoc/{componentId}
           method: get
           request:
