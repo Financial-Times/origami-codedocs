@@ -12,7 +12,7 @@
 }
 
 /// Single brand with description.
-/// @brand internal My description.
+/// @brand internal - My description.
 @mixin singleBrandDesc {
     content: '';
 }
@@ -31,7 +31,7 @@
 }
 
 /// Multiple brands with description.
-/// @brand internal|master My description.
+/// @brand internal|master - My description.
 @mixin multipleBrandsDesc {
     content: '';
 }
@@ -43,7 +43,7 @@
 }
 
 /// Multiple brands with spaces and description.
-/// @brand internal | master My description.
+/// @brand internal | master - My description.
 @mixin multipleBrandsWithSpaceDesc {
     content: '';
 }

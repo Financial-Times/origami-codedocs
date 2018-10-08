@@ -21,7 +21,7 @@ Generates JSDoc and SassDoc json for Origami components.
 
 ## Requirements
 
-Running Origami Repo Data requires [Node.js] 8.x and [npm].
+Running Origami Codedocs requires [Node.js] 8.x and [npm].
 
 ## Running Locally
 
@@ -147,8 +147,7 @@ npx serverless deploy --stage dev --region eu-west-1
 
 ### Upating Fastly failed during a production deploy?
 
-This is likely due to the Fastly API key expiring. Create a new personal api key in Fastly with access to the `origami-codedocs.in.ft.
-com` service, and add this environment variable to CircleCi.
+This is likely due to the Fastly API key expiring. Create a new personal api key in Fastly with access to the `origami-codedocs.in.ft.com` service, and add this environment variable to CircleCi.
 
 ### Integration tests are failing due to forbidden requests.
 
