@@ -5,7 +5,7 @@ frameworkVersion: ">=1.26.1"
 provider:
   name: aws
   memorySize: 256
-  timeout: 120
+  timeout: 30
   stage: ${opt:stage, self:custom.defaultStage}
   runtime: nodejs8.10
   apiKeys:
