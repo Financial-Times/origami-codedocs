@@ -1,0 +1,45 @@
+{
+  "name": "origami-codedocs",
+  "version": "1.0.0",
+  "description": "Origami CodeDocs Serverless ===============",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test-unit && npm run test-integration",
+    "start": "serverless offline start",
+    "lint": "eslint .",
+    "test-unit": "mocha test/unit/**/*.test.js --recursive",
+    "test-integration": "sls s3remove && INTEGRATION_ENDPOINT=${INTEGRATION_ENDPOINT:-$(cat .dev-stack.yml | sed -n \"s/ServiceEndpoint: '\\(.*\\)'/\\1/p\")} mocha test/integration/*.test.js test/integration/**/*.test.js --timeout 30000 --slow 5000 --recursive --bail",
+    "update-fastly-prod": "HOST_PROD=${HOST_PROD:-$(cat .prod-stack.yml | sed -n \"s/ServiceEndpoint: 'https:\\/\\/\\(.*\\)\\/prod'/\\1/p\")} node ./lib/update-fastly-prod.js"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=8.10"
+  },
+  "dependencies": {
+    "@financial-times/origami-repo-data-client": "^1.4.1",
+    "decompress": "^4.2.0",
+    "execa": "^1.0.0",
+    "got": "^9.0.0",
+    "jsdoc": "^3.5.5",
+    "raven": "^2.6.4",
+    "sassdoc": "^2.5.0",
+    "serverless-s3-remover": "^0.6.0",
+    "serverless-sentry-lib": "^1.1.2"
+  },
+  "devDependencies": {
+    "dotenv-safe": "^6.0.0",
+    "eslint": "^4.19.1",
+    "mocha": "^3.5.3",
+    "nyc": "^13.0.1",
+    "proclaim": "^3.5.1",
+    "serverless": "^1.30.0",
+    "serverless-apigw-binary": "^0.4.4",
+    "serverless-apigwy-binary": "^0.1.0",
+    "serverless-offline": "^3.25.7",
+    "serverless-plugin-additional-stacks": "^1.2.0",
+    "serverless-sentry": "^1.2.0",
+    "serverless-stack-output": "^0.2.3",
+    "supertest": "^3.1.0"
+  }
+}

@@ -1,0 +1,49 @@
+/// Single brand.
+/// @brand master
+@mixin singleBrand {
+    content: '';
+}
+
+/// Single brand followed by other annotation.
+/// @brand master
+/// @parameter {Number} number - other annotation
+@mixin singleBrandPlusParam($number) {
+    content: $number;
+}
+
+/// Single brand with description.
+/// @brand internal - My description.
+@mixin singleBrandDesc {
+    content: '';
+}
+
+/// Multiple brands.
+/// @brand internal|master
+@mixin multipleBrands {
+    content: '';
+}
+
+/// Multiple brands followed by other annotation.
+/// @brand internal|master
+/// @parameter {Number} number - other annotation
+@mixin multipleBrandPlusParam($number) {
+    content: $number;
+}
+
+/// Multiple brands with description.
+/// @brand internal|master - My description.
+@mixin multipleBrandsDesc {
+    content: '';
+}
+
+/// Multiple brands with spaces and description.
+/// @brand internal | master
+@mixin multipleBrandsWithSpace {
+    content: '';
+}
+
+/// Multiple brands with spaces and description.
+/// @brand internal | master - My description.
+@mixin multipleBrandsWithSpaceDesc {
+    content: '';
+}

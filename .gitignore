@@ -1,0 +1,14 @@
+.DS_Store
+.editorconfig
+.vscode/
+.env
+.nyc_output
+coverage
+node_modules
+logs
+*.log
+npm-debug.log*
+.npm
+.serverless
+.dev-stack.yml
+.prod-stack.yml
