@@ -138,7 +138,7 @@ jobs:
 
 workflows:
   version: 2
-  test:
+  deploy:
     jobs:
       - install_dependencies
       - lint:
@@ -161,7 +161,6 @@ workflows:
             branches:
               only:
                 - master
-                - codedocs
       - update_fastly_production:
           requires:
             - deploy_service_production
@@ -169,4 +168,3 @@ workflows:
             branches:
               only:
                 - master
-                - codedocs

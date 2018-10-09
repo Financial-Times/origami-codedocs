@@ -136,6 +136,7 @@ functions:
                 componentId: true
   health:
     handler: functions/health.handler
+    memorySize: 128
     events:
       - http:
           method: get
