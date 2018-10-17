@@ -9,6 +9,7 @@ const endpoint = process.env.INTEGRATION_ENDPOINT;
 const codedocsApiKey = env.CODEDOCS_API_KEY;
 
 const expectedJsDocs = require('./expectations/jsdoc');
+const expectedNonModuleJsDocs = require('./expectations/jsdoc-non-module');
 const expectedSassDocs = require('./expectations/sassdoc');
 
 console.log(`Testing against "${endpoint}".`);
@@ -51,6 +52,15 @@ describe('GET jsdoc/[componentId]', function () {
             .expect('Content-Type', 'text/html; charset=utf-8')
             .expect('Cache-Control', 'no-cache')
             .expect(404, 'Could not find repository for Origami component "o-not-a-real-component-2018@v1.0.0". Not Found');
+    });
+
+    it('responds with JSDoc doclets for a component which is not a "module"', () => {
+        return request(endpoint)
+            .get('/jsdoc/origami-repo-data-client-node@1.5.0')
+            .set('x-api-key', codedocsApiKey)
+            .expect(200, expectedNonModuleJsDocs)
+            .expect('Content-Type', 'application/json;charset=utf-8')
+            .expect('Cache-Control', expectedDocletCacheControl);
     });
 });
 
