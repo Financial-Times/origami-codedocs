@@ -54,13 +54,31 @@ describe('GET jsdoc/[componentId]', function () {
             .expect(404, 'Could not find repository for Origami component "o-not-a-real-component-2018@v1.0.0". Not Found');
     });
 
-    it('responds with JSDoc doclets for a component which is not a "module"', () => {
+    it('responds with JSDoc doclets for a component with type "null"', () => {
         return request(endpoint)
             .get('/jsdoc/origami-repo-data-client-node@1.5.0')
             .set('x-api-key', codedocsApiKey)
             .expect(200, expectedNonModuleJsDocs)
             .expect('Content-Type', 'application/json;charset=utf-8')
             .expect('Cache-Control', expectedDocletCacheControl);
+    });
+
+    it('responds with a 404 error for a component of type "imageset"', () => {
+        return request(endpoint)
+            .get('/jsdoc/origami-flag-images@1.0.1')
+            .set('x-api-key', codedocsApiKey)
+            .expect(404, '"origami-flag-images@1.0.1" is of type "imageset", only "module" or "null" types are supported.')
+            .expect('Content-Type', 'text/html; charset=utf-8')
+            .expect('Cache-Control', 'no-cache');
+    });
+
+    it('responds with a 404 error for a component of type "service"', () => {
+        return request(endpoint)
+            .get('/jsdoc/origami-repo-data@80.0.0')
+            .set('x-api-key', codedocsApiKey)
+            .expect(404, '"origami-repo-data@80.0.0" is of type "service", only "module" or "null" types are supported.')
+            .expect('Content-Type', 'text/html; charset=utf-8')
+            .expect('Cache-Control', 'no-cache');
     });
 });
 
@@ -97,6 +115,24 @@ describe('GET sassdoc/[componentId]', function () {
             .get('/sassdoc/o-not-a-real-component-2018@v1.0.0')
             .set('x-api-key', codedocsApiKey)
             .expect(404, 'Could not find repository for Origami component "o-not-a-real-component-2018@v1.0.0". Not Found')
+            .expect('Content-Type', 'text/html; charset=utf-8')
+            .expect('Cache-Control', 'no-cache');
+    });
+
+    it('responds with a 404 error for a component of type "imageset"', () => {
+        return request(endpoint)
+            .get('/sassdoc/origami-flag-images@1.0.1')
+            .set('x-api-key', codedocsApiKey)
+            .expect(404, '"origami-flag-images@1.0.1" is of type "imageset", only "module" or "null" types are supported.')
+            .expect('Content-Type', 'text/html; charset=utf-8')
+            .expect('Cache-Control', 'no-cache');
+    });
+
+    it('responds with a 404 error for a component of type "service"', () => {
+        return request(endpoint)
+            .get('/sassdoc/origami-repo-data@80.0.0')
+            .set('x-api-key', codedocsApiKey)
+            .expect(404, '"origami-repo-data@80.0.0" is of type "service", only "module" or "null" types are supported.')
             .expect('Content-Type', 'text/html; charset=utf-8')
             .expect('Cache-Control', 'no-cache');
     });
