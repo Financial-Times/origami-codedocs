@@ -36,6 +36,15 @@ describe('GET jsdoc/[componentId]', function () {
             .expect('Cache-Control', expectedDocletCacheControl);
     });
 
+    it('responds with JSDoc doclets for a component outside of the standard "Financial-Times" Github Organisation', () => {
+        return request(endpoint)
+            .get('/jsdoc/o-crossword@1.8.3')
+            .set('x-api-key', codedocsApiKey)
+            .expect(200)
+            .expect('Content-Type', 'application/json;charset=utf-8')
+            .expect('Cache-Control', expectedDocletCacheControl);
+    });
+
     it('responds with 404 when component has no JS', () => {
         return request(endpoint)
             .get('/jsdoc/o-test-component@v1.0.33')
@@ -100,6 +109,16 @@ describe('GET sassdoc/[componentId]', function () {
             .expect('Content-Type', 'application/json;charset=utf-8')
             .expect('Cache-Control', expectedDocletCacheControl);
     });
+
+    it('responds with SassDoc doclets for a component outside of the standard "Financial-Times" Github Organisation', () => {
+        return request(endpoint)
+            .get('/jsdoc/o-crossword@1.8.3')
+            .set('x-api-key', codedocsApiKey)
+            .expect(200)
+            .expect('Content-Type', 'application/json;charset=utf-8')
+            .expect('Cache-Control', expectedDocletCacheControl);
+    });
+
 
     it('responds with 404 when component has no SCSS', () => {
         return request(endpoint)
