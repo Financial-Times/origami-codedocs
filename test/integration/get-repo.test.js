@@ -45,6 +45,15 @@ describe('GET jsdoc/[componentId]', function () {
             .expect('Cache-Control', 'no-cache');
     });
 
+    it('responds with 404 when component says it has JS in origami.json but doesn\'t actually have JS', () => {
+        return request(endpoint)
+            .get('/jsdoc/o-normalise@v2.0.0-beta')
+            .set('x-api-key', codedocsApiKey)
+            .expect(404, 'No "js" found for "o-normalise@v2.0.0-beta".')
+            .expect('Content-Type', 'text/html; charset=utf-8')
+            .expect('Cache-Control', 'no-cache');
+    });
+
     it('responds with 404 when the requested component does not exist', () => {
         return request(endpoint)
             .get('/jsdoc/o-not-a-real-component-2018@v1.0.0')
