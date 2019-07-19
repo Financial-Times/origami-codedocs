@@ -7,7 +7,7 @@ provider:
   memorySize: 256
   timeout: 30
   stage: ${opt:stage, self:custom.defaultStage}
-  runtime: nodejs10.15
+  runtime: nodejs10.x
   apiKeys:
     - ${self:custom.secret.CODEDOCS_API_KEY_NAME}
   deploymentBucket: ${self:service}-artefacts-${self:provider.stage}
