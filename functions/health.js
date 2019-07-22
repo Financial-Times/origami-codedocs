@@ -73,7 +73,9 @@ exports.handler = RavenLambdaWrapper.handler(Raven, async (event) => {
     const githubUrl = `https://api.github.com/repos/Financial-Times/${testComponent}/tarball/${testComponentVersion}`;
     const githubTimeout = 500;
     await got.head(githubUrl, {
-        timeout: githubTimeout,
+        timeout: {
+            response: githubTimeout
+        },
         headers: { 'User-Agent': 'OrigamiCodedocsService' }
     }).catch((response) => {
         gtg = false;
