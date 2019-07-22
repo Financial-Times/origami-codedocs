@@ -14,32 +14,32 @@
   },
   "license": "MIT",
   "engines": {
-    "node": ">=8.10"
+    "node": ">=10.16.0"
   },
   "dependencies": {
-    "@financial-times/origami-repo-data-client": "^1.4.1",
+    "@financial-times/origami-repo-data-client": "^1.5.0",
     "decompress": "^4.2.0",
     "execa": "^1.0.0",
-    "got": "^9.0.0",
+    "got": "^9.6.0",
     "jsdoc": "3.5.5",
     "raven": "^2.6.4",
-    "sassdoc": "^2.5.0",
-    "serverless-s3-remover": "^0.6.0",
+    "sassdoc": "^2.7.0",
     "serverless-sentry-lib": "^1.1.2"
   },
   "devDependencies": {
-    "dotenv-safe": "^6.0.0",
+    "dotenv-safe": "^6.1.0",
     "eslint": "^4.19.1",
     "mocha": "^5.2.0",
-    "nyc": "^13.0.1",
-    "proclaim": "^3.5.1",
-    "serverless": "^1.30.0",
+    "nyc": "^13.3.0",
+    "proclaim": "^3.6.0",
+    "serverless": "1.43.0",
     "serverless-apigw-binary": "^0.4.4",
     "serverless-apigwy-binary": "^0.1.0",
-    "serverless-offline": "^3.25.7",
+    "serverless-offline": "^3.33.0",
     "serverless-plugin-additional-stacks": "^1.2.0",
     "serverless-sentry": "^1.2.0",
     "serverless-stack-output": "^0.2.3",
-    "supertest": "^3.1.0"
+    "supertest": "^3.4.2",
+    "serverless-s3-remover": "^0.6.0"
   }
 }

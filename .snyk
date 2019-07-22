@@ -1,0 +1,21 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.13.5
+# ignores vulnerabilities until expiry date; change duration by modifying expiry date
+ignore:
+  SNYK-JS-MARKED-174116:
+    - jsdoc > marked:
+        reason: JS input controlled. JSDoc upgrade issue created
+        expires: '2019-08-21T11:16:36.113Z'
+  SNYK-JS-MARKED-451540:
+    - jsdoc > marked:
+        reason: JS input controlled. JSDoc upgrade issue created
+        expires: '2019-08-21T11:16:36.113Z'
+  SNYK-JS-MARKED-451341:
+    - sassdoc > sassdoc-theme-default > sassdoc-extras > marked:
+        reason: Sass input controlled.
+        expires: '2019-08-21T11:16:36.113Z'
+  'npm:braces:20180219':
+    - sassdoc > vinyl-fs > glob-stream > micromatch > braces:
+        reason: Sass input controlled.
+        expires: '2019-08-21T11:16:36.113Z'
+patch: {}

@@ -45,11 +45,20 @@ describe('GET jsdoc/[componentId]', function () {
             .expect('Cache-Control', 'no-cache');
     });
 
-    it('responds with 404 when component says it has JS in origami.json but doesn\'t actually have JS', () => {
+    it('responds with 404 when component says it has JS in origami.json but doesn\'t actually have a JS directory', () => {
         return request(endpoint)
             .get('/jsdoc/o-normalise@v2.0.0-beta')
             .set('x-api-key', codedocsApiKey)
             .expect(404, 'No "js" found for "o-normalise@v2.0.0-beta".')
+            .expect('Content-Type', 'text/html; charset=utf-8')
+            .expect('Cache-Control', 'no-cache');
+    });
+
+    it('responds with 404 when component says it has JS in origami.json but is non-compliant and uses typescript', () => {
+        return request(endpoint)
+            .get('/jsdoc/n-profile-ui@1.6.0')
+            .set('x-api-key', codedocsApiKey)
+            .expect(404, 'No "js" found for "n-profile-ui@1.6.0".')
             .expect('Content-Type', 'text/html; charset=utf-8')
             .expect('Cache-Control', 'no-cache');
     });
