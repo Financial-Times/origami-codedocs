@@ -14,7 +14,7 @@
   },
   "license": "MIT",
   "engines": {
-    "node": ">=8.10"
+    "node": ">=10.16.0"
   },
   "dependencies": {
     "@financial-times/origami-repo-data-client": "^1.5.0",
@@ -24,7 +24,6 @@
     "jsdoc": "^3.6.3",
     "raven": "^2.6.4",
     "sassdoc": "^2.7.0",
-    "serverless-s3-remover": "^0.6.0",
     "serverless-sentry-lib": "^1.1.2"
   },
   "devDependencies": {
@@ -40,6 +39,7 @@
     "serverless-plugin-additional-stacks": "^1.2.0",
     "serverless-sentry": "^1.2.0",
     "serverless-stack-output": "^0.2.3",
-    "supertest": "^3.4.2"
+    "supertest": "^3.4.2",
+    "serverless-s3-remover": "^0.6.0"
   }
 }
