@@ -71,12 +71,21 @@ exports.handler = RavenLambdaWrapper.handler(Raven, async (event) => {
 
     // Access GitHub repos API
     const githubUrl = `https://api.github.com/repos/Financial-Times/${testComponent}/tarball/${testComponentVersion}`;
+    const githubTimeout = 500;
     await got.head(githubUrl, {
+        timeout: {
+            response: githubTimeout
+        },
         headers: { 'User-Agent': 'OrigamiCodedocsService' }
     }).catch((response) => {
         gtg = false;
         health.checks[1].ok = false;
-        health.checks[1].checkOutput = `Status code of "${response.statusCode}" from Github URL "${githubUrl}".`;
+        if (response.code === 'ETIMEDOUT') {
+            health.checks[1].checkOutput = `Github URL "${githubUrl}" took longer than ${githubTimeout}ms to respond.`;
+        } else {
+            health.checks[1].checkOutput = `Status code of "${response.statusCode}" from Github URL "${githubUrl}".`;
+        }
+
     });
 
     // Return /__gtg if requested.
