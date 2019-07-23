@@ -71,7 +71,7 @@ exports.handler = RavenLambdaWrapper.handler(Raven, async (event) => {
 
     // Access GitHub repos API
     const githubUrl = `https://api.github.com/repos/Financial-Times/${testComponent}/tarball/${testComponentVersion}`;
-    const githubTimeout = 500;
+    const githubTimeout = 20000;
     await got.head(githubUrl, {
         timeout: {
             response: githubTimeout
