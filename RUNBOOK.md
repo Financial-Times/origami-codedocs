@@ -2,10 +2,6 @@
 
 Generates and stores codedocs (JsDoc and SassDoc) for Origami components.
 
-## Code
-
-origami-codedocs
-
 ## Service Tier
 
 Bronze
