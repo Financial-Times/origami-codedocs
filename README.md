@@ -1,10 +1,8 @@
 
-Origami CodeDocs
+Origami CodeDocs [![Build status](https://circleci.com/gh/Financial-Times/origami-codedocs.svg?style=svg)](https://circleci.com/gh/Financial-Times/origami-codedocs) [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](#licence)
 ===============
 
 Generates JSDoc and SassDoc json for Origami components.
-
-[![Build status](https://circleci.com/gh/Financial-Times/origami-codedocs.svg?style=svg)](https://circleci.com/gh/Financial-Times/origami-codedocs)
 
 ## Table Of Contents
 
@@ -19,7 +17,7 @@ Generates JSDoc and SassDoc json for Origami components.
 
 ## Requirements
 
-Running Origami Codedocs requires [Node.js] 8.x and [npm].
+Running Origami Codedocs requires [Node.js] 10.x and [npm].
 
 ## Running Locally
 
@@ -44,37 +42,37 @@ We configure Origami CodeDocs using environment variables. In development, confi
 
 ### Required everywhere
 
-AWS_ACCOUNT_ID
-AWS_ACCESS_KEY_ID
-AWS_SECRET_ACCESS_KEY
-NODE_ENV
-REPO_DATA_API_KEY
-REPO_DATA_API_SECRET
-SENTRY_DSN
-SENTRY_ORGANISATION
-SENTRY_PROJECT
-SENTRY_AUTH_TOKEN
-CODEDOCS_API_KEY_NAME
-CODEDOCS_API_KEY
+- AWS_ACCOUNT_ID
+- AWS_ACCESS_KEY_ID
+- AWS_SECRET_ACCESS_KEY
+- NODE_ENV
+- REPO_DATA_API_KEY
+- REPO_DATA_API_SECRET
+- SENTRY_DSN
+- SENTRY_ORGANISATION
+- SENTRY_PROJECT
+- SENTRY_AUTH_TOKEN
+- CODEDOCS_API_KEY_NAME
+- CODEDOCS_API_KEY
 
 ### Required in CircleCI
 
 Configuration for Fastly is required in CircleCi:
 
-FASTLY_PROD
-FASTLY_SERVICE_PROD
-FASTLY_BACKEND_NAME_PROD
+- FASTLY_PROD
+- FASTLY_SERVICE_PROD
+- FASTLY_BACKEND_NAME_PROD
 
 The following environment variables are also required in CircleCi for a production deploy:
 
-AWS_ACCOUNT_ID_PROD
-AWS_ACCESS_KEY_ID_PROD
-AWS_SECRET_ACCESS_KEY_PROD
-REPO_DATA_API_KEY_PROD
-REPO_DATA_API_SECRET_PROD
-SENTRY_DSN_PROD
-SENTRY_AUTH_TOKEN_PROD
-SENTRY_PROJECT_PROD
+- AWS_ACCOUNT_ID_PROD
+- AWS_ACCESS_KEY_ID_PROD
+- AWS_SECRET_ACCESS_KEY_PROD
+- REPO_DATA_API_KEY_PROD
+- REPO_DATA_API_SECRET_PROD
+- SENTRY_DSN_PROD
+- SENTRY_AUTH_TOKEN_PROD
+- SENTRY_PROJECT_PROD
 
 These production environment variables are mapped during a production deploy e.g. `AWS_ACCOUNT_ID` is automatically set to the value of `AWS_ACCOUNT_ID_PROD`. We do this as, at the time of writing, CircleCi contexts are not available to users without root permissions.
 
@@ -159,3 +157,7 @@ Ensure the correct `x-api-key` header is set when making requests. Locally the k
 
 [sentry-prod]: https://sentry.io/nextftcom/origami-codedocs-prod/
 [sentry-dev]: https://sentry.io/nextftcom/origami-codedocs/
+
+## Licence
+
+This software is published by the Financial Times under the [MIT licence](http://opensource.org/licenses/MIT).
