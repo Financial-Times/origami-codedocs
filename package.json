@@ -27,7 +27,7 @@
     "serverless-sentry-lib": "1.1.2"
   },
   "devDependencies": {
-    "dotenv-safe": "6.1.0",
+    "dotenv-safe": "8.1.0",
     "eslint": "4.19.1",
     "mocha": "5.2.0",
     "nyc": "13.3.0",
