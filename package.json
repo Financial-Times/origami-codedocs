@@ -19,7 +19,7 @@
   "dependencies": {
     "@financial-times/origami-repo-data-client": "1.6.0",
     "decompress": "4.2.0",
-    "execa": "2.0.5",
+    "execa": "2.1.0",
     "got": "9.6.0",
     "jsdoc": "3.5.5",
     "raven": "2.6.4",
