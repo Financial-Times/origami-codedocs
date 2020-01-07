@@ -36,6 +36,15 @@ describe('GET jsdoc/[componentId]', function () {
             .expect('Cache-Control', expectedDocletCacheControl);
     });
 
+    it('responds with some JSDoc doclets when JSDoc cannot be parsed in a portion of the codebase due to invalid syntax', () => {
+        return request(endpoint)
+            .get('/jsdoc/o-ads@14.1.0')
+            .set('x-api-key', codedocsApiKey)
+            .expect(200)
+            .expect('Content-Type', 'application/json;charset=utf-8')
+            .expect('Cache-Control', expectedDocletCacheControl);
+    });
+
     it('responds with 404 when component has no JS', () => {
         return request(endpoint)
             .get('/jsdoc/o-test-component@v1.0.33')
