@@ -21,7 +21,7 @@
     "decompress": "4.2.0",
     "execa": "4.0.0",
     "got": "10.6.0",
-    "jsdoc": "3.5.5",
+    "jsdoc": "3.6.3",
     "raven": "2.6.4",
     "sassdoc": "2.7.1",
     "serverless-sentry-lib": "1.1.2"
