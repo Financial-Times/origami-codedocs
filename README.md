@@ -100,7 +100,7 @@ Serverless: Key with token: [your key here]
 Serverless: Remember to use x-api-key on the request headers
 ```
 
-In a deployed environment these routes are prefixed with the "stage" either `prod` or `dev`. The  `x-api-key` for a deployed service is available in LastPass, or the latest may be found in AWS under "apigateway". This is an example request to the production service:
+In a deployed environment these routes are prefixed with the "stage" either `prod` or `dev`. The  `x-api-key` for a deployed service is available in Vault, or the latest may be found in AWS under "apigateway". This is an example request to the production service:
 ```sh
 curl https://origami-codedocs.in.ft.com/prod/sassdoc/o-grid@v4.4.4 -H "x-api-key:[key here]"
 ```
