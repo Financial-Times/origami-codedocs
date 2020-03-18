@@ -17,7 +17,7 @@
     "node": ">=10.16.0"
   },
   "dependencies": {
-    "@financial-times/origami-repo-data-client": "1.6.0",
+    "@financial-times/origami-repo-data-client": "1.6.1",
     "decompress": "4.2.0",
     "execa": "4.0.0",
     "got": "10.6.0",
