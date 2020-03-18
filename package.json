@@ -29,7 +29,7 @@
   "devDependencies": {
     "dotenv-safe": "8.2.0",
     "eslint": "6.8.0",
-    "mocha": "7.1.0",
+    "mocha": "7.1.1",
     "nyc": "15.0.0",
     "proclaim": "3.6.0",
     "serverless": "1.66.0",
