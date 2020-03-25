@@ -61,23 +61,38 @@ exports.handler = RavenLambdaWrapper.handler(Raven, async (event) => {
     };
 
     // Get repo data (from the Origami Repo Data service)
+    const repoDataTest = getRepo(testComponent, testComponentVersion, 'js');
+    
+    // Access GitHub repos API
+    const githubUrl = `https://api.github.com/repos/Financial-Times/${testComponent}/tarball/${testComponentVersion}`;
+    const githubTimeout = 20000;
+    const githubApiTest = got.head(githubUrl, {
+        timeout: {
+            response: githubTimeout
+        },
+        headers: { 'User-Agent': 'OrigamiCodedocsService' }
+    });
+
+    const s3Test = s3
+    .putObject({
+        Bucket: bucket,
+        Key: 'health-check.txt',
+        Body: 'Can write to S3'
+    })
+    .promise();
+
     try {
-        await getRepo(testComponent, testComponentVersion, 'js');
+        await repoDataTest
     } catch (error) {
         gtg = false;
         health.checks[2].ok = false;
         health.checks[2].checkOutput = `Unable to get repo data for "${testComponent}" at version "${testComponentVersion}": ${error.message}`;
     }
 
-    // Access GitHub repos API
-    const githubUrl = `https://api.github.com/repos/Financial-Times/${testComponent}/tarball/${testComponentVersion}`;
-    const githubTimeout = 20000;
-    await got.head(githubUrl, {
-        timeout: {
-            response: githubTimeout
-        },
-        headers: { 'User-Agent': 'OrigamiCodedocsService' }
-    }).catch((response) => {
+    
+    try {
+        await githubApiTest;
+    } catch (response) {
         gtg = false;
         health.checks[1].ok = false;
         if (response.code === 'ETIMEDOUT') {
@@ -85,8 +100,7 @@ exports.handler = RavenLambdaWrapper.handler(Raven, async (event) => {
         } else {
             health.checks[1].checkOutput = `Status code of "${response.statusCode}" from Github URL "${githubUrl}".`;
         }
-
-    });
+    }
 
     // Return /__gtg if requested.
     if (event.path === '/__gtg') {
@@ -101,17 +115,12 @@ exports.handler = RavenLambdaWrapper.handler(Raven, async (event) => {
     }
 
     // Write to S3 (required for /__health, not for /__gtg)
-    await s3
-        .putObject({
-            Bucket: bucket,
-            Key: 'health-check.txt',
-            Body: 'Can write to S3'
-        })
-        .promise()
-        .catch(() => {
-            health.checks[0].ok = false;
-            health.checks[0].checkOutput = `Can not write to S3 bucket named "${bucket}".`;
-        });
+    try {
+        await s3Test;
+    } catch (e) {
+        health.checks[0].ok = false;
+        health.checks[0].checkOutput = `Can not write to S3 bucket named "${bucket}".`;
+    }
 
     // Return /__health
     return {
