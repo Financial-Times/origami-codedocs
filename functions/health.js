@@ -82,7 +82,7 @@ exports.handler = RavenLambdaWrapper.handler(Raven, async (event) => {
     .promise();
 
     try {
-        await repoDataTest
+        await repoDataTest;
     } catch (error) {
         gtg = false;
         health.checks[2].ok = false;
