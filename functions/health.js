@@ -15,71 +15,89 @@ const s3 = new AWS.S3({
 const bucket = env.AWS_DOCLET_BUCKET;
 const testComponent = 'o-test-component';
 const testComponentVersion = 'v1.0.29';
+let lastCheck = null;
+let gtg = true;
+const health = {
+    schemaVersion: 1,
+    systemCode: 'origami-codedocs',
+    name: 'origami-codedocs',
+    description: 'Open API endpoint for generating raw, automated code documentation of Origami Components, including JSDoc and SassDoc.',
+    checks: [
+        {
+            id: 's3-write',
+            ok: true,
+            name: 'Able to write to S3',
+            severity: 3,
+            businessImpact: 'AWS costs will be higher than usual.',
+            technicalSummary: `Can not write to S3 bucket named "${bucket}". As AWS S3 is unavailable, AWS Lambda will re-generate codedocs repeatedly, rather than fetch already generated codedocs from AWS S3.`,
+            panicGuide: 'It is likely that the AWS API keys that are being used have expired and new ones need to be generated, check "AWS_ACCESS_KEY_ID" and "AWS_SECRET_ACCESS_KEY".',
+            checkOutput: 'None',
+            lastUpdated: new Date()
+        },
+        {
+            id: 'github-repos-availability',
+            ok: true,
+            name: 'Able to reach the Github repos API',
+            severity: 2,
+            businessImpact: 'Reduced developer productivity.',
+            technicalSummary: 'Can not reach the Github api. To generate documentation for Origami components, component code first is downloaded from Github as a tarball.',
+            panicGuide: 'Check [Github\'s status](https://status.github.com/messages), and confirm the Github API has not changed.',
+            checkOutput: 'None',
+            lastUpdated: new Date()
+        },
+        {
+            id: 'origami-data-serivce-availability',
+            ok: true,
+            name: 'Able to get data from the Origami Repo Data service',
+            severity: 2,
+            businessImpact: 'Reduced developer productivity.',
+            technicalSummary: 'Can not download Origami component information for a given version from the [Origami Repo Data service](https://origami-repo-data.ft.com/v1).',
+            panicGuide: 'Check the [health status of the Origami Repo Data service](https://origami-repo-data.ft.com/__health) and that the keys to access the service are valid "REPO_DATA_API_KEY" and "REPO_DATA_API_KEY".',
+            checkOutput: 'None',
+            lastUpdated: new Date()
+        }
+    ]
+};
+let repoDataTest;
+let githubApiTest;
+let s3Test;
+
+/**
+ * 
+ * @param {number} previousTime - milliseconds since unix epoch -- E.G. Date.now().
+ * @returns {number} difference in seconds between current time and `previousTime` in seconds.
+ */
+function secondsSince(previousTime) {
+    const currentTime = Date.now();
+    return Math.floor((currentTime - previousTime) / 1000);
+}
+
+const githubUrl = `https://api.github.com/repos/Financial-Times/${testComponent}/tarball/${testComponentVersion}`;
+const githubTimeout = 20000;
 
 exports.handler = RavenLambdaWrapper.handler(Raven, async (event) => {
-    let gtg = true;
-    const health = {
-        schemaVersion: 1,
-        systemCode: 'origami-codedocs',
-        name: 'origami-codedocs',
-        description: 'Open API endpoint for generating raw, automated code documentation of Origami Components, including JSDoc and SassDoc.',
-        checks: [
-            {
-                id: 's3-write',
-                ok: true,
-                name: 'Able to write to S3',
-                severity: 3,
-                businessImpact: 'AWS costs will be higher than usual.',
-                technicalSummary: `Can not write to S3 bucket named "${bucket}". As AWS S3 is unavailable, AWS Lambda will re-generate codedocs repeatedly, rather than fetch already generated codedocs from AWS S3.`,
-                panicGuide: 'It is likely that the AWS API keys that are being used have expired and new ones need to be generated, check "AWS_ACCESS_KEY_ID" and "AWS_SECRET_ACCESS_KEY".',
-                checkOutput: 'None',
-                lastUpdated: new Date()
-            },
-            {
-                id: 'github-repos-availability',
-                ok: true,
-                name: 'Able to reach the Github repos API',
-                severity: 2,
-                businessImpact: 'Reduced developer productivity.',
-                technicalSummary: 'Can not reach the Github api. To generate documentation for Origami components, component code first is downloaded from Github as a tarball.',
-                panicGuide: 'Check [Github\'s status](https://status.github.com/messages), and confirm the Github API has not changed.',
-                checkOutput: 'None',
-                lastUpdated: new Date()
-            },
-            {
-                id: 'origami-data-serivce-availability',
-                ok: true,
-                name: 'Able to get data from the Origami Repo Data service',
-                severity: 2,
-                businessImpact: 'Reduced developer productivity.',
-                technicalSummary: 'Can not download Origami component information for a given version from the [Origami Repo Data service](https://origami-repo-data.ft.com/v1).',
-                panicGuide: 'Check the [health status of the Origami Repo Data service](https://origami-repo-data.ft.com/__health) and that the keys to access the service are valid "REPO_DATA_API_KEY" and "REPO_DATA_API_KEY".',
-                checkOutput: 'None',
-                lastUpdated: new Date()
-            }
-        ]
-    };
-
-    // Get repo data (from the Origami Repo Data service)
-    const repoDataTest = getRepo(testComponent, testComponentVersion, 'js');
+    if (lastCheck === null || secondsSince(lastCheck) > 60) {
+        lastCheck = Date.now();
+        // Get repo data (from the Origami Repo Data service)
+        repoDataTest = getRepo(testComponent, testComponentVersion, 'js');
     
-    // Access GitHub repos API
-    const githubUrl = `https://api.github.com/repos/Financial-Times/${testComponent}/tarball/${testComponentVersion}`;
-    const githubTimeout = 20000;
-    const githubApiTest = got.head(githubUrl, {
-        timeout: {
-            response: githubTimeout
-        },
-        headers: { 'User-Agent': 'OrigamiCodedocsService' }
-    });
+        // Access GitHub repos API
+        
+        githubApiTest = got.head(githubUrl, {
+            timeout: {
+                response: githubTimeout
+            },
+            headers: { 'User-Agent': 'OrigamiCodedocsService' }
+        });
 
-    const s3Test = s3
-    .putObject({
-        Bucket: bucket,
-        Key: 'health-check.txt',
-        Body: 'Can write to S3'
-    })
-    .promise();
+        s3Test = s3
+        .putObject({
+            Bucket: bucket,
+            Key: 'health-check.txt',
+            Body: 'Can write to S3'
+        })
+        .promise();
+    }
 
     try {
         await repoDataTest;
