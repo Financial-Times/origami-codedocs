@@ -1,5 +1,5 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
-version: v1.13.5
+version: v1.14.1
 # ignores vulnerabilities until expiry date; change duration by modifying expiry date
 ignore:
   SNYK-JS-MARKED-174116:
@@ -18,4 +18,14 @@ ignore:
     - sassdoc > vinyl-fs > glob-stream > micromatch > braces:
         reason: Sass input controlled.
         expires: '2019-08-21T11:16:36.113Z'
-patch: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  SNYK-JS-LODASH-567746:
+    - '@financial-times/origami-repo-data-client > lodash':
+        patched: '2020-05-06T17:01:39.606Z'
+    - jsdoc > catharsis > lodash:
+        patched: '2020-05-06T17:01:39.606Z'
+    - jsdoc > requizzle > lodash:
+        patched: '2020-05-06T17:01:39.606Z'
+    - '@financial-times/origami-repo-data-client > request-promise-native > request-promise-core > lodash':
+        patched: '2020-05-06T17:01:39.606Z'
