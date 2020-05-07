@@ -37,9 +37,9 @@
     "serverless-apigwy-binary": "1.0.0",
     "serverless-offline": "6.1.5",
     "serverless-plugin-additional-stacks": "1.4.0",
+    "serverless-s3-remover": "0.6.0",
     "serverless-sentry": "1.2.0",
     "serverless-stack-output": "0.2.3",
-    "supertest": "4.0.2",
-    "serverless-s3-remover": "0.6.0"
+    "supertest": "4.0.2"
   }
 }
