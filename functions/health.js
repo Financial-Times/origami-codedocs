@@ -58,12 +58,9 @@ const health = {
         }
     ]
 };
-let repoDataTest;
-let githubApiTest;
-let s3Test;
 
 /**
- * 
+ *
  * @param {number} previousTime - milliseconds since unix epoch -- E.G. Date.now().
  * @returns {number} difference in seconds between current time and `previousTime` in seconds.
  */
@@ -76,40 +73,33 @@ const githubUrl = `https://api.github.com/repos/Financial-Times/${testComponent}
 const githubTimeout = 20000;
 
 exports.handler = RavenLambdaWrapper.handler(Raven, async (event) => {
+    let runThrottledTests = false;
     if (lastCheck === null || secondsSince(lastCheck) > 60) {
         lastCheck = Date.now();
-        // Get repo data (from the Origami Repo Data service)
-        repoDataTest = getRepo(testComponent, testComponentVersion, 'js');
-    
-        // Access GitHub repos API
-        
-        githubApiTest = got.head(githubUrl, {
-            timeout: {
-                response: githubTimeout
-            },
-            headers: { 'User-Agent': 'OrigamiCodedocsService' }
-        });
-
-        s3Test = s3
-        .putObject({
-            Bucket: bucket,
-            Key: 'health-check.txt',
-            Body: 'Can write to S3'
-        })
-        .promise();
+        runThrottledTests = true;
     }
 
     try {
-        await repoDataTest;
+        // Get repo data (from the Origami Repo Data service)
+        if (runThrottledTests) {
+            await getRepo(testComponent, testComponentVersion, 'js');
+        }
     } catch (error) {
         gtg = false;
         health.checks[2].ok = false;
         health.checks[2].checkOutput = `Unable to get repo data for "${testComponent}" at version "${testComponentVersion}": ${error.message}`;
     }
 
-    
     try {
-        await githubApiTest;
+        // Access GitHub repos API
+        if (runThrottledTests) {
+            await got.head(githubUrl, {
+                timeout: {
+                    response: githubTimeout
+                },
+                headers: { 'User-Agent': 'OrigamiCodedocsService' }
+            });
+        }
     } catch (response) {
         gtg = false;
         health.checks[1].ok = false;
@@ -134,7 +124,13 @@ exports.handler = RavenLambdaWrapper.handler(Raven, async (event) => {
 
     // Write to S3 (required for /__health, not for /__gtg)
     try {
-        await s3Test;
+        if (runThrottledTests) {
+            await s3.putObject({
+                Bucket: bucket,
+                Key: 'health-check.txt',
+                Body: 'Can write to S3'
+            }).promise();
+        }
     } catch (e) {
         health.checks[0].ok = false;
         health.checks[0].checkOutput = `Can not write to S3 bucket named "${bucket}".`;
