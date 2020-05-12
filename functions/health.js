@@ -82,6 +82,7 @@ exports.handler = RavenLambdaWrapper.handler(Raven, async (event) => {
     try {
         // Get repo data (from the Origami Repo Data service)
         if (runThrottledTests) {
+            health.checks[2].lastUpdated = new Date();
             await getRepo(testComponent, testComponentVersion, 'js');
         }
     } catch (error) {
@@ -93,6 +94,7 @@ exports.handler = RavenLambdaWrapper.handler(Raven, async (event) => {
     try {
         // Access GitHub repos API
         if (runThrottledTests) {
+            health.checks[1].lastUpdated = new Date();
             await got.head(githubUrl, {
                 timeout: {
                     response: githubTimeout
@@ -125,6 +127,7 @@ exports.handler = RavenLambdaWrapper.handler(Raven, async (event) => {
     // Write to S3 (required for /__health, not for /__gtg)
     try {
         if (runThrottledTests) {
+            health.checks[0].lastUpdated = new Date();
             await s3.putObject({
                 Bucket: bucket,
                 Key: 'health-check.txt',
