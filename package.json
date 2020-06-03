@@ -32,7 +32,7 @@
     "mocha": "7.2.0",
     "nyc": "15.1.0",
     "proclaim": "3.6.0",
-    "serverless": "1.71.3",
+    "serverless": "1.72.0",
     "serverless-apigw-binary": "0.4.4",
     "serverless-apigwy-binary": "1.0.0",
     "serverless-offline": "6.3.0",
