@@ -23,7 +23,7 @@
     "got": "11.2.0",
     "jsdoc": "3.5.5",
     "raven": "2.6.4",
-    "sassdoc": "2.7.1",
+    "sassdoc": "2.7.2",
     "serverless-sentry-lib": "1.1.2"
   },
   "devDependencies": {
