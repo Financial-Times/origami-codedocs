@@ -1,5 +1,4 @@
-/* eslint-disable */
-module.exports = [
+[
     {
         "comment": "",
         "meta": {
@@ -78,49 +77,7 @@ module.exports = [
         "longname": "RepoDataClient",
         "kind": "class",
         "scope": "global",
-        "description": "Create an Origami Repo Data client.",
-        "params": [
-            {
-                "type": {
-                    "names": [
-                        "Object"
-                    ]
-                },
-                "optional": true,
-                "description": "The client options.",
-                "name": "options"
-            },
-            {
-                "type": {
-                    "names": [
-                        "String"
-                    ]
-                },
-                "optional": true,
-                "description": "The API key to use when making requests.\nDefaults to the value of the <code>REPO_DATA_API_KEY</code> environment variable.",
-                "name": "options.apiKey"
-            },
-            {
-                "type": {
-                    "names": [
-                        "String"
-                    ]
-                },
-                "optional": true,
-                "description": "The API secret to use when making requests.\nDefaults to the value of the <code>REPO_DATA_API_SECRET</code> environment variable.",
-                "name": "options.apiSecret"
-            },
-            {
-                "type": {
-                    "names": [
-                        "String"
-                    ]
-                },
-                "optional": true,
-                "description": "The URL of the Origami Repo Data service.\nDefaults to the value of the <code>REPO_DATA_API_URL</code> environment variable or the production service.",
-                "name": "options.apiUrl"
-            }
-        ]
+        "undocumented": true
     },
     {
         "comment": "/**\n\t * Create an Origami Repo Data client.\n\t * @param {Object} [options] - The client options.\n\t * @param {String} [options.apiKey] - The API key to use when making requests.\n\t * Defaults to the value of the <code>REPO_DATA_API_KEY</code> environment variable.\n\t * @param {String} [options.apiSecret] - The API secret to use when making requests.\n\t * Defaults to the value of the <code>REPO_DATA_API_SECRET</code> environment variable.\n\t * @param {String} [options.apiUrl] - The URL of the Origami Repo Data service.\n\t * Defaults to the value of the <code>REPO_DATA_API_URL</code> environment variable or the production service.\n\t * @returns {RepoDataClient} A new RepoDataClient instance.\n\t */",
@@ -203,6 +160,88 @@ module.exports = [
         "kind": "class",
         "scope": "global",
         "undocumented": true
+    },
+    {
+        "comment": "/**\n\t * Create an Origami Repo Data client.\n\t * @param {Object} [options] - The client options.\n\t * @param {String} [options.apiKey] - The API key to use when making requests.\n\t * Defaults to the value of the <code>REPO_DATA_API_KEY</code> environment variable.\n\t * @param {String} [options.apiSecret] - The API secret to use when making requests.\n\t * Defaults to the value of the <code>REPO_DATA_API_SECRET</code> environment variable.\n\t * @param {String} [options.apiUrl] - The URL of the Origami Repo Data service.\n\t * Defaults to the value of the <code>REPO_DATA_API_URL</code> environment variable or the production service.\n\t * @returns {RepoDataClient} A new RepoDataClient instance.\n\t */",
+        "meta": {
+            "range": [
+                1107,
+                1189
+            ],
+            "filename": "client.js",
+            "lineno": 28,
+            "columnno": 1,
+            "path": "/lib",
+            "code": {
+                "id": "astnode100000019",
+                "name": "RepoDataClient",
+                "type": "MethodDefinition",
+                "paramnames": [
+                    "options"
+                ]
+            }
+        },
+        "name": "RepoDataClient",
+        "longname": "RepoDataClient",
+        "kind": "class",
+        "description": "Create an Origami Repo Data client.",
+        "returns": [
+            {
+                "type": {
+                    "names": [
+                        "RepoDataClient"
+                    ]
+                },
+                "description": "A new RepoDataClient instance."
+            }
+        ],
+        "scope": "global",
+        "classdesc": "Class representing an Origami Repo Data client.",
+        "examples": [
+            "<caption>Create a client</caption>\nconst repoData = new RepoDataClient({\n    apiKey: 'xxxXxXxX-XXXX-XXXX-xXXx-xxxXXXxXXXXX',\n    apiSecret: 'xxXXXxxXXXXXXXXXxxxxxxxXXXxXxXXXXXXxxXXx'\n});"
+        ],
+        "params": [
+            {
+                "type": {
+                    "names": [
+                        "Object"
+                    ]
+                },
+                "optional": true,
+                "description": "The client options.",
+                "name": "options"
+            },
+            {
+                "type": {
+                    "names": [
+                        "String"
+                    ]
+                },
+                "optional": true,
+                "description": "The API key to use when making requests.\nDefaults to the value of the <code>REPO_DATA_API_KEY</code> environment variable.",
+                "name": "options.apiKey"
+            },
+            {
+                "type": {
+                    "names": [
+                        "String"
+                    ]
+                },
+                "optional": true,
+                "description": "The API secret to use when making requests.\nDefaults to the value of the <code>REPO_DATA_API_SECRET</code> environment variable.",
+                "name": "options.apiSecret"
+            },
+            {
+                "type": {
+                    "names": [
+                        "String"
+                    ]
+                },
+                "optional": true,
+                "description": "The URL of the Origami Repo Data service.\nDefaults to the value of the <code>REPO_DATA_API_URL</code> environment variable or the production service.",
+                "name": "options.apiUrl"
+            }
+        ]
     },
     {
         "comment": "",

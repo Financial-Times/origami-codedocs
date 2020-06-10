@@ -112,7 +112,7 @@ The tests are split into unit tests and integration tests. Unit tests are used f
 ```sh
 npm run test                                                  # run all the tests
 npm run test-unit                                             # run the unit tests
-INTEGRATION_ENDPOINT=localhost:3000 npm run test-integration  # run the integration tests against localhost (the service must be running locally first)
+INTEGRATION_ENDPOINT=localhost:3000/dev npm run test-integration  # run the integration tests against localhost (the service must be running locally first)
 ```
 
 Integration tests run against the endpoint defined by the environment variable `INTEGRATION_ENDPOINT`. If it is not configured the service endpoint defined in `.dev-stack.yml` is used by default. This is generated automatically by serverless on deployment.
