@@ -1,5 +1,4 @@
-/* eslint-disable */
-module.exports = [
+[
     {
         "comment": "/**\n * A global variable called 'foo'.\n * http://usejsdoc.org/tags-member.html\n * @type {number}\n */",
         "meta": {
@@ -366,7 +365,7 @@ module.exports = [
         "longname": "Pet",
         "kind": "class",
         "scope": "global",
-        "params": []
+        "undocumented": true
     },
     {
         "comment": "",
@@ -395,6 +394,30 @@ module.exports = [
         "kind": "class",
         "scope": "global",
         "params": []
+    },
+    {
+        "comment": "",
+        "meta": {
+            "range": [
+                383,
+                426
+            ],
+            "filename": "class.js",
+            "lineno": 23,
+            "columnno": 1,
+            "path": "/src/js",
+            "code": {
+                "id": "astnode100000098",
+                "name": "Pet",
+                "type": "MethodDefinition",
+                "paramnames": []
+            }
+        },
+        "name": "Pet",
+        "longname": "Pet",
+        "kind": "class",
+        "scope": "global",
+        "classdesc": "Class representing a domesticated animal."
     },
     {
         "comment": "",
@@ -507,16 +530,7 @@ module.exports = [
         "name": "Cat",
         "longname": "Cat",
         "scope": "global",
-        "params": [
-            {
-                "type": {
-                    "names": [
-                        "string"
-                    ]
-                },
-                "name": "name"
-            }
-        ]
+        "undocumented": true
     },
     {
         "comment": "/**\n\t * @param {string} name\n\t */",
@@ -556,6 +570,45 @@ module.exports = [
         "kind": "class",
         "scope": "global",
         "undocumented": true
+    },
+    {
+        "comment": "/**\n\t * @param {string} name\n\t */",
+        "meta": {
+            "range": [
+                734,
+                787
+            ],
+            "filename": "class.js",
+            "lineno": 43,
+            "columnno": 1,
+            "path": "/src/js",
+            "code": {
+                "id": "astnode100000132",
+                "name": "Cat",
+                "type": "MethodDefinition",
+                "paramnames": [
+                    "name"
+                ]
+            }
+        },
+        "name": "Cat",
+        "longname": "Cat",
+        "kind": "class",
+        "scope": "global",
+        "classdesc": "Creates a new Cat.\nUses JSDoc class tag with doc comments on class and constructor.\nhttp://usejsdoc.org/tags-class.html",
+        "augments": [
+            "Pet"
+        ],
+        "params": [
+            {
+                "type": {
+                    "names": [
+                        "string"
+                    ]
+                },
+                "name": "name"
+            }
+        ]
     },
     {
         "comment": "",
@@ -639,17 +692,7 @@ module.exports = [
         "longname": "Dog",
         "kind": "class",
         "scope": "global",
-        "description": "Creates a new Dog.\nMissing class tag and doc comment on constructor only.\nhttp://usejsdoc.org/tags-class.html",
-        "params": [
-            {
-                "type": {
-                    "names": [
-                        "string"
-                    ]
-                },
-                "name": "name"
-            }
-        ]
+        "undocumented": true
     },
     {
         "comment": "/**\n\t * Creates a new Dog.\n\t * Missing class tag and doc comment on constructor only.\n\t * http://usejsdoc.org/tags-class.html\n\t * @param {string} name\n\t */",
@@ -690,6 +733,45 @@ module.exports = [
         "kind": "class",
         "scope": "global",
         "undocumented": true
+    },
+    {
+        "comment": "/**\n\t * Creates a new Dog.\n\t * Missing class tag and doc comment on constructor only.\n\t * http://usejsdoc.org/tags-class.html\n\t * @param {string} name\n\t */",
+        "meta": {
+            "range": [
+                1083,
+                1136
+            ],
+            "filename": "class.js",
+            "lineno": 66,
+            "columnno": 1,
+            "path": "/src/js",
+            "code": {
+                "id": "astnode100000160",
+                "name": "Dog",
+                "type": "MethodDefinition",
+                "paramnames": [
+                    "name"
+                ]
+            }
+        },
+        "name": "Dog",
+        "longname": "Dog",
+        "kind": "class",
+        "description": "Creates a new Dog.\nMissing class tag and doc comment on constructor only.\nhttp://usejsdoc.org/tags-class.html",
+        "scope": "global",
+        "augments": [
+            "Pet"
+        ],
+        "params": [
+            {
+                "type": {
+                    "names": [
+                        "string"
+                    ]
+                },
+                "name": "name"
+            }
+        ]
     },
     {
         "comment": "",
@@ -1725,4 +1807,4 @@ module.exports = [
             "/src/js/throws.js"
         ]
     }
-];
+]
