@@ -10,7 +10,9 @@
     "lint": "eslint .",
     "test-unit": "mocha test/unit/**/*.test.js --recursive",
     "test-integration": "sls s3remove && INTEGRATION_ENDPOINT=${INTEGRATION_ENDPOINT:-$(cat .dev-stack.yml | sed -n \"s/ServiceEndpoint: '\\(.*\\)'/\\1/p\")} mocha test/integration/*.test.js test/integration/**/*.test.js --timeout 30000 --slow 5000 --recursive --bail",
-    "update-fastly-prod": "HOST_PROD=${HOST_PROD:-$(cat .prod-stack.yml | sed -n \"s/ServiceEndpoint: 'https:\\/\\/\\(.*\\)\\/prod'/\\1/p\")} node ./lib/update-fastly-prod.js"
+    "update-fastly-prod": "HOST_PROD=${HOST_PROD:-$(cat .prod-stack.yml | sed -n \"s/ServiceEndpoint: 'https:\\/\\/\\(.*\\)\\/prod'/\\1/p\")} node ./lib/update-fastly-prod.js",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "license": "MIT",
   "engines": {
@@ -24,7 +26,8 @@
     "jsdoc": "3.6.4",
     "raven": "2.6.4",
     "sassdoc": "2.7.2",
-    "serverless-sentry-lib": "1.1.2"
+    "serverless-sentry-lib": "1.1.2",
+    "snyk": "^1.342.2"
   },
   "devDependencies": {
     "dotenv-safe": "8.2.0",
@@ -41,5 +44,6 @@
     "serverless-sentry": "1.2.0",
     "serverless-stack-output": "0.2.3",
     "supertest": "4.0.2"
-  }
+  },
+  "snyk": true
 }
