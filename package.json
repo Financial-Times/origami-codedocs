@@ -26,7 +26,7 @@
     "jsdoc": "3.6.4",
     "raven": "2.6.4",
     "sassdoc": "2.7.2",
-    "serverless-sentry-lib": "1.1.2",
+    "serverless-sentry-lib": "2.1.0",
     "snyk": "^1.345.1"
   },
   "devDependencies": {
