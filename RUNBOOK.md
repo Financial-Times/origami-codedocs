@@ -110,7 +110,7 @@ n/a
 
 ## Release Details
 
-To release merge to the master branch. CircleCI will run tests and deploy changes to AWS and update the Fastly service if needed.
+To release merge to the master branch. CI will run tests and deploy changes to AWS and update the Fastly service if needed.
 
 ## Key Management Details
 
