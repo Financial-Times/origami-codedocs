@@ -1,19 +1,17 @@
-
-Origami CodeDocs [![Build status](https://circleci.com/gh/Financial-Times/origami-codedocs.svg?style=svg)](https://circleci.com/gh/Financial-Times/origami-codedocs) [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](#licence)
-===============
+# Origami CodeDocs [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](#licence)
 
 Generates JSDoc and SassDoc json for Origami components.
 
 ## Table Of Contents
 
-  * [Requirements](#requirements)
-  * [Running Locally](#running-locally)
-  * [Configuration](#configuration)
-  * [Operational Documentation](#operational-documentation)
-  * [Testing](#testing)
-  * [Deployment](#deployment)
-  * [Monitoring](#monitoring)
-  * [Trouble-Shooting](#trouble-shooting)
+- [Requirements](#requirements)
+- [Running Locally](#running-locally)
+- [Configuration](#configuration)
+- [Operational Documentation](#operational-documentation)
+- [Testing](#testing)
+- [Deployment](#deployment)
+- [Monitoring](#monitoring)
+- [Trouble-Shooting](#trouble-shooting)
 
 ## Requirements
 
@@ -35,10 +33,9 @@ npx serverless offline start
 
 Now we can access the app over HTTP on port `3000`: [http://localhost:3000/](http://localhost:3000/)
 
-
 ## Configuration
 
-We configure Origami CodeDocs using environment variables. In development, configurations are set in a `.env` file. In production, these are set during deployment through CircleCi config.
+We configure Origami CodeDocs using environment variables. In development, configurations are set in a `.env` file. In production, these are set during deployment through CI config.
 
 ### Required everywhere
 
@@ -55,15 +52,15 @@ We configure Origami CodeDocs using environment variables. In development, confi
 - CODEDOCS_API_KEY_NAME
 - CODEDOCS_API_KEY
 
-### Required in CircleCI
+### Required in CI
 
-Configuration for Fastly is required in CircleCi:
+Configuration for Fastly is required in CI:
 
 - FASTLY_PROD
 - FASTLY_SERVICE_PROD
 - FASTLY_BACKEND_NAME_PROD
 
-The following environment variables are also required in CircleCi for a production deploy:
+The following environment variables are also required in CI for a production deploy:
 
 - AWS_ACCOUNT_ID_PROD
 - AWS_ACCESS_KEY_ID_PROD
@@ -74,19 +71,22 @@ The following environment variables are also required in CircleCi for a producti
 - SENTRY_AUTH_TOKEN_PROD
 - SENTRY_PROJECT_PROD
 
-These production environment variables are mapped during a production deploy e.g. `AWS_ACCOUNT_ID` is automatically set to the value of `AWS_ACCOUNT_ID_PROD`. We do this as, at the time of writing, CircleCi contexts are not available to users without root permissions.
+These production environment variables are mapped during a production deploy e.g. `AWS_ACCOUNT_ID` is automatically set to the value of `AWS_ACCOUNT_ID_PROD`. We do this as, at the time of writing, CI contexts are not available to users without root permissions.
 
 ## Operational Documentation
 
 Routes available include the following:
 
 Routes for jsdoc:
+
 - GET `/jsdoc/{componentId}`
 
 Routes for sassdoc:
+
 - GET `/sassdoc/{componentId}`
 
 Routes for health:
+
 - GET `/__health`
 - GET `/__gtg`
 
@@ -100,7 +100,8 @@ Serverless: Key with token: [your key here]
 Serverless: Remember to use x-api-key on the request headers
 ```
 
-In a deployed environment these routes are prefixed with the "stage" either `prod` or `dev`. The  `x-api-key` for a deployed service is available in Vault, or the latest may be found in AWS under "apigateway". This is an example request to the production service:
+In a deployed environment these routes are prefixed with the "stage" either `prod` or `dev`. The `x-api-key` for a deployed service is available in Vault, or the latest may be found in AWS under "apigateway". This is an example request to the production service:
+
 ```sh
 curl https://origami-codedocs.in.ft.com/prod/sassdoc/o-grid@v4.4.4 -H "x-api-key:[key here]"
 ```
@@ -117,7 +118,6 @@ INTEGRATION_ENDPOINT=localhost:3000/dev npm run test-integration  # run the inte
 
 Integration tests run against the endpoint defined by the environment variable `INTEGRATION_ENDPOINT`. If it is not configured the service endpoint defined in `.dev-stack.yml` is used by default. This is generated automatically by serverless on deployment.
 
-
 The code will also need to pass linting on CI, you can run the linter locally with:
 
 ```sh
@@ -126,7 +126,7 @@ npm run lint
 
 ## Deployment
 
-CircleCi will deploy the service on merge to the `master` branch. It will first deploy to the development `dev` environment to run integration tests. If tests pass it then deploys to the production `prod` environment.
+CI will deploy the service on merge to the `master` branch. It will first deploy to the development `dev` environment to run integration tests. If tests pass it then deploys to the production `prod` environment.
 
 If you would like to deploy to the development `dev` environment manually, run:
 
@@ -136,20 +136,20 @@ npx serverless deploy --stage dev --region eu-west-1
 
 ## Monitoring
 
-* [Sentry dashboard (Prod)][sentry-prod]: records application errors in the production app
-* [Sentry dashboard (Dev)][sentry-dev]: records application errors in the development app
+- [Sentry dashboard (Prod)][sentry-prod]: records application errors in the production app
+- [Sentry dashboard (Dev)][sentry-dev]: records application errors in the development app
 
 ## Trouble-Shooting
 
 ### Upating Fastly failed during a production deploy?
 
-This is likely due to the Fastly API key expiring. Create a new personal api key in Fastly with access to the `origami-codedocs.in.ft.com` service, and add this environment variable to CircleCi.
+This is likely due to the Fastly API key expiring. Create a new personal api key in Fastly with access to the `origami-codedocs.in.ft.com` service, and add this environment variable to CI.
 
 ### Integration tests are failing due to forbidden requests.
 
-If the service returns `403 "Forbidden"` errors  when running integration tests, it is likely the `CODEDOCS_API_KEY` environment variable is incorrect.
+If the service returns `403 "Forbidden"` errors when running integration tests, it is likely the `CODEDOCS_API_KEY` environment variable is incorrect.
 
-Locally ensure `CODEDOCS_API_KEY` is set to the api key [output by Serverless when running the app](#operational-documentation). For the `dev` environment, make sure `CODEDOCS_API_KEY` is set to the right value in CircleCi. The api key of a deployed application can be found under "apigateway" in AWS.
+Locally ensure `CODEDOCS_API_KEY` is set to the api key [output by Serverless when running the app](#operational-documentation). For the `dev` environment, make sure `CODEDOCS_API_KEY` is set to the right value in CI. The api key of a deployed application can be found under "apigateway" in AWS.
 
 ### Forbidden requests.
 

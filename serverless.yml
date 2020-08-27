@@ -42,7 +42,7 @@ custom:
     permanent:
       Resources:
         S3DocletBucketPolicy:
-          Type: 'AWS::S3::BucketPolicy'
+          Type: "AWS::S3::BucketPolicy"
           Properties:
             Bucket:
               Ref: "S3DocletBucket"
@@ -53,25 +53,25 @@ custom:
                   Effect: Allow
                   Principal:
                     AWS:
-                    - ${self:provider.role}
+                      - ${self:provider.role}
                   Action: s3:PutObject
                   Resource:
-                  - arn:aws:s3:::${self:custom.additionalStacks.permanent.Resources.S3DocletBucket.Properties.BucketName}/*
+                    - arn:aws:s3:::${self:custom.additionalStacks.permanent.Resources.S3DocletBucket.Properties.BucketName}/*
                 - Sid: AllowOnlyApplicationToGetObject
                   Effect: Allow
                   Principal:
                     AWS:
-                    - ${self:provider.role}
+                      - ${self:provider.role}
                   Action: s3:PutObject
                   Resource:
-                  - arn:aws:s3:::${self:custom.additionalStacks.permanent.Resources.S3DocletBucket.Properties.BucketName}/*
+                    - arn:aws:s3:::${self:custom.additionalStacks.permanent.Resources.S3DocletBucket.Properties.BucketName}/*
         S3DocletBucket:
-          Type: 'AWS::S3::Bucket'
+          Type: "AWS::S3::Bucket"
           Properties:
             BucketName: ${self:custom.bucketName}
   apigwBinary:
     types:
-      - '*/*'
+      - "*/*"
   defaultStage: dev
   tags:
     dev:
@@ -84,8 +84,8 @@ custom:
   output:
     file: ./.${self:provider.stage}-stack.yml
   remover:
-     buckets:
-       - ${self:custom.bucketName}
+    buckets:
+      - ${self:custom.bucketName}
   sentry:
     dsn: ${self:custom.secret.SENTRY_DSN}
     organization: ${self:custom.secret.SENTRY_ORGANISATION}
@@ -94,7 +94,7 @@ custom:
 
 package:
   exclude:
-    - .circleci/**
+    - .github/**
     - .serverless/**
     - .sonarlint/**
     - .terraform/**
