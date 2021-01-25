@@ -35,7 +35,7 @@
     "mocha": "8.2.1",
     "nyc": "15.1.0",
     "proclaim": "3.6.0",
-    "serverless": "2.20.0",
+    "serverless": "2.20.1",
     "serverless-apigw-binary": "0.4.4",
     "serverless-apigwy-binary": "1.0.0",
     "serverless-offline": "6.8.0",
@@ -43,7 +43,7 @@
     "serverless-s3-remover": "0.6.0",
     "serverless-sentry": "1.2.0",
     "serverless-stack-output": "0.2.3",
-    "supertest": "6.1.1"
+    "supertest": "6.1.2"
   },
   "snyk": true
 }
