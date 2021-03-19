@@ -1,6 +1,14 @@
+<!--
+    Written in the format prescribed by https://github.com/Financial-Times/runbook.md.
+    Any future edits should abide by this format.
+-->
 # Origami Codedocs
 
 Generates and stores codedocs (JsDoc and SassDoc) for Origami components.
+
+## Code
+
+origami-codedocs
 
 ## Service Tier
 
@@ -14,43 +22,31 @@ Production
 
 https://origami-codedocs.in.ft.com/prod/
 
-## Replaces
-
-* ft-sassdoc-service
-
 ## Host Platform
 
 AWS
 
 ## Contains Personal Data
 
-no
+No
 
 ## Contains Sensitive Data
 
-no
+No
 
-## Delivered By
+<!-- Placeholder - remove HTML comment markers to activate
+## Can Download Personal Data
+Choose Yes or No
 
-origami-team
+...or delete this placeholder if not applicable to this system
+-->
 
-## Supported By
+<!-- Placeholder - remove HTML comment markers to activate
+## Can Contact Individuals
+Choose Yes or No
 
-origami-team
-
-## Known About By
-
-* rowan.manning
-* jake.champion
-* lee.moody
-
-## Dependencies
-
-* github
-
-## Healthchecks
-
-* origami-codedocs.in.ft.com-https
+...or delete this placeholder if not applicable to this system
+-->
 
 ## Failover Architecture Type
 
@@ -86,7 +82,7 @@ An AWS Lambda checks the Origami Repo Data API that the request is for an Origam
 
 ## More Information
 
-This is the service which generates the code documentation on [https://registry.origami.ft.com](https://registry.origami.ft.com)
+This is the service which generates the code documentation on <https://registry.origami.ft.com>
 
 ## First Line Troubleshooting
 
@@ -116,3 +112,10 @@ To release merge to the master branch. CI will run tests and deploy changes to A
 
 Create deploy keys for the "DeployUserFor_Serverless_origami-codedocs" user under the "ft-tech-origami-prod" AWS account.
 
+<!-- Placeholder - remove HTML comment markers to activate
+## Heroku Pipeline Name
+Enter descriptive text satisfying the following:
+This is the name of the Heroku pipeline for this system. If you don't have a pipeline, this is the name of the app in Heroku. A pipeline is a group of Heroku apps that share the same codebase where each app in a pipeline represents the different stages in a continuous delivery workflow, i.e. staging, production.
+
+...or delete this placeholder if not applicable to this system
+-->
