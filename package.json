@@ -31,7 +31,7 @@
   },
   "devDependencies": {
     "dotenv-safe": "8.2.0",
-    "eslint": "^7.22.0",
+    "eslint": "^7.23.0",
     "mocha": "8.3.2",
     "nyc": "15.1.0",
     "proclaim": "3.6.0",
