@@ -16,7 +16,7 @@
   },
   "license": "MIT",
   "engines": {
-    "node": ">=10.16.0"
+    "node": ">=14.0.0"
   },
   "dependencies": {
     "@financial-times/origami-repo-data-client": "1.6.3",

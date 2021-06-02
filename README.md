@@ -15,7 +15,7 @@ Generates JSDoc and SassDoc json for Origami components.
 
 ## Requirements
 
-Running Origami Codedocs requires [Node.js] 10.x and [npm].
+Running Origami Codedocs requires [Node.js] 14.x and [npm].
 
 ## Running Locally
 
