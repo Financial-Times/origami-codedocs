@@ -24,11 +24,11 @@
     "execa": "4.0.3",
     "get-npm-tarball-url": "^2.0.2",
     "got": "11.5.2",
-    "jsdoc": "3.6.5",
+    "jsdoc": "3.6.7",
     "raven": "2.6.4",
     "sassdoc": "2.7.3",
     "serverless-sentry-lib": "1.1.2",
-    "snyk": "^1.465.0"
+    "snyk": "^1.685.0"
   },
   "devDependencies": {
     "dotenv-safe": "8.2.0",
