@@ -53,7 +53,7 @@ const health = {
             severity: 2,
             businessImpact: 'Reduced developer productivity.',
             technicalSummary: 'Can not download Origami component information for a given version from the [Origami Repo Data service](https://origami-repo-data.ft.com/v1).',
-            panicGuide: 'Check the [health status of the Origami Repo Data service](https://origami-repo-data.ft.com/__health) and that the keys to access the service are valid "REPO_DATA_API_KEY" and "REPO_DATA_API_KEY".',
+            panicGuide: 'Check the [health status of the Origami Repo Data service](https://origami-repo-data.ft.com/__health).',
             checkOutput: 'None',
             lastUpdated: new Date()
         },
