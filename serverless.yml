@@ -23,8 +23,6 @@ provider:
     AWS_SECRET: ${self:custom.secret.AWS_SECRET_ACCESS_KEY}
     AWS_DOCLET_BUCKET: ${self:custom.additionalStacks.permanent.Resources.S3DocletBucket.Properties.BucketName}
     NODE_ENV: ${self:custom.secret.NODE_ENV}
-    REPO_DATA_API_KEY: ${self:custom.secret.REPO_DATA_API_KEY}
-    REPO_DATA_API_SECRET: ${self:custom.secret.REPO_DATA_API_SECRET}
 
 plugins:
   - serverless-offline
