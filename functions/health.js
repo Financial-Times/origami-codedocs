@@ -3,8 +3,7 @@
 const got = require('got');
 const AWS = require('aws-sdk');
 const getRepo = require('../lib/get-repo');
-const Raven = require('raven');
-const RavenLambdaWrapper = require('serverless-sentry-lib');
+const Sentry = require('../lib/sentry');
 const getNpmTarballUrl = require('get-npm-tarball-url').default;
 const env = process.env;
 
@@ -84,7 +83,7 @@ function secondsSince(previousTime) {
 const githubUrl = `https://api.github.com/repos/Financial-Times/${testComponent}/tarball/${testComponentVersion}`;
 const apiEndpointTimeout = 20000;
 
-exports.handler = RavenLambdaWrapper.handler(Raven, async (event) => {
+exports.handler = Sentry.AWSLambda.wrapHandler(async (event) => {
     let runThrottledTests = false;
     if (lastCheck === null || secondsSince(lastCheck) > 60) {
         lastCheck = Date.now();
