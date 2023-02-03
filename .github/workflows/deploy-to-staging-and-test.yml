@@ -6,10 +6,7 @@ env:
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   CODEDOCS_API_KEY: ${{ secrets.CODEDOCS_API_KEY }}
   CODEDOCS_API_KEY_NAME: ${{ secrets.CODEDOCS_API_KEY_NAME }}
-  SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
   SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
-  SENTRY_ORGANISATION: ${{ secrets.SENTRY_ORGANISATION }}
-  SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
   FASTLY_PROD: ${{ secrets.FASTLY_PROD }}
   FASTLY_SERVICE_PROD: ${{ secrets.FASTLY_SERVICE_PROD }}
   FASTLY_BACKEND_NAME_PROD: ${{ secrets.FASTLY_BACKEND_NAME_PROD }}
@@ -32,7 +29,7 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v2.1.5
         with:
-          node-version: 14.x
+          node-version: 16.x
       - uses: actions/cache@v2.1.5
         with:
           path: ~/.npm

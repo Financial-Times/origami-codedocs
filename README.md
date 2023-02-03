@@ -44,9 +44,6 @@ We configure Origami CodeDocs using environment variables. In development, confi
 - AWS_SECRET_ACCESS_KEY
 - NODE_ENV
 - SENTRY_DSN
-- SENTRY_ORGANISATION
-- SENTRY_PROJECT
-- SENTRY_AUTH_TOKEN
 - CODEDOCS_API_KEY_NAME
 - CODEDOCS_API_KEY
 
@@ -63,9 +60,6 @@ The following environment variables are also required in CI for a production dep
 - AWS_ACCOUNT_ID_PROD
 - AWS_ACCESS_KEY_ID_PROD
 - AWS_SECRET_ACCESS_KEY_PROD
-- SENTRY_DSN_PROD
-- SENTRY_AUTH_TOKEN_PROD
-- SENTRY_PROJECT_PROD
 
 These production environment variables are mapped during a production deploy e.g. `AWS_ACCOUNT_ID` is automatically set to the value of `AWS_ACCOUNT_ID_PROD`. We do this as, at the time of writing, CI contexts are not available to users without root permissions.
 

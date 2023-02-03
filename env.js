@@ -20,9 +20,6 @@ module.exports = () => {
         NODE_ENV: process.env.NODE_ENV || env.NODE_ENV,
 
         SENTRY_DSN: process.env.SENTRY_DSN || env.SENTRY_DSN,
-        SENTRY_ORGANISATION: process.env.SENTRY_ORGANISATION || env.SENTRY_ORGANISATION,
-        SENTRY_PROJECT: process.env.SENTRY_PROJECT || env.SENTRY_PROJECT,
-        SENTRY_AUTH_TOKEN: process.env.SENTRY_AUTH_TOKEN || env.SENTRY_AUTH_TOKEN,
 
         CODEDOCS_API_KEY_NAME: process.env.CODEDOCS_API_KEY_NAME || env.CODEDOCS_API_KEY_NAME,
         CODEDOCS_API_KEY: process.env.CODEDOCS_API_KEY || env.CODEDOCS_API_KEY,

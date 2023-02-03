@@ -7,7 +7,7 @@ provider:
   memorySize: 256
   timeout: 30
   stage: ${opt:stage, self:custom.defaultStage}
-  runtime: nodejs14.x
+  runtime: nodejs16.x
   apiKeys:
     - ${self:custom.secret.CODEDOCS_API_KEY_NAME}
   deploymentBucket: ${self:service}-artefacts-${self:provider.stage}
@@ -23,6 +23,7 @@ provider:
     AWS_SECRET: ${self:custom.secret.AWS_SECRET_ACCESS_KEY}
     AWS_DOCLET_BUCKET: ${self:custom.additionalStacks.permanent.Resources.S3DocletBucket.Properties.BucketName}
     NODE_ENV: ${self:custom.secret.NODE_ENV}
+    STAGE: ${self:provider.stage}
 
 plugins:
   - serverless-offline
@@ -32,7 +33,6 @@ plugins:
   - serverless-create-deployment-bucket-plugin
   - serverless-stack-output
   - serverless-s3-remover
-  - serverless-sentry
 
 custom:
   bucketName: ${self:service}-${self:provider.stage}-doclets
@@ -86,9 +86,9 @@ custom:
       - ${self:custom.bucketName}
   sentry:
     dsn: ${self:custom.secret.SENTRY_DSN}
-    organization: ${self:custom.secret.SENTRY_ORGANISATION}
-    project: ${self:custom.secret.SENTRY_PROJECT}
-    authToken: ${self:custom.secret.SENTRY_AUTH_TOKEN}
+    filterLocal: false
+    environment: 'dev'
+    enabled: true
 
 package:
   exclude:
