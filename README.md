@@ -4,14 +4,22 @@ Generates JSDoc and SassDoc json for Origami components.
 
 ## Table Of Contents
 
-- [Requirements](#requirements)
-- [Running Locally](#running-locally)
-- [Configuration](#configuration)
-- [Operational Documentation](#operational-documentation)
-- [Testing](#testing)
-- [Deployment](#deployment)
-- [Monitoring](#monitoring)
-- [Trouble-Shooting](#trouble-shooting)
+- [Origami CodeDocs ](#origami-codedocs-)
+  - [Table Of Contents](#table-of-contents)
+  - [Requirements](#requirements)
+  - [Running Locally](#running-locally)
+  - [Configuration](#configuration)
+    - [Required everywhere](#required-everywhere)
+    - [Required in CI](#required-in-ci)
+  - [Operational Documentation](#operational-documentation)
+  - [Testing](#testing)
+  - [Deployment](#deployment)
+  - [Monitoring](#monitoring)
+  - [Trouble-Shooting](#trouble-shooting)
+    - [Upating Fastly failed during a production deploy?](#upating-fastly-failed-during-a-production-deploy)
+    - [Integration tests are failing due to forbidden requests](#integration-tests-are-failing-due-to-forbidden-requests)
+    - [Forbidden requests.](#forbidden-requests)
+  - [Licence](#licence)
 
 ## Requirements
 
@@ -135,7 +143,7 @@ npx serverless deploy --stage dev --region eu-west-1
 
 This is likely due to the Fastly API key expiring. Create a new personal api key in Fastly with access to the `origami-codedocs.in.ft.com` service, and add this environment variable to CI.
 
-### Integration tests are failing due to forbidden requests.
+### Integration tests are failing due to forbidden requests
 
 If the service returns `403 "Forbidden"` errors when running integration tests, it is likely the `CODEDOCS_API_KEY` environment variable is incorrect.
 
