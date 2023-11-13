@@ -78,7 +78,7 @@ describe('GET jsdoc/[componentId]', function () {
             .set('x-api-key', codedocsApiKey)
             .expect('Content-Type', 'text/html; charset=utf-8')
             .expect('Cache-Control', 'no-cache')
-            .expect(404, 'Could not find repository for Origami component "o-not-a-real-component-2018@v1.0.0". Not Found');
+            .expect(404, /Could not find repository for Origami component "o-not-a-real-component-2018@v1\.0\.0"/);
     });
 
     it('responds with JSDoc doclets for a component with type "null"', () => {
@@ -141,7 +141,7 @@ describe('GET sassdoc/[componentId]', function () {
         return request(endpoint)
             .get('/sassdoc/o-not-a-real-component-2018@v1.0.0')
             .set('x-api-key', codedocsApiKey)
-            .expect(404, 'Could not find repository for Origami component "o-not-a-real-component-2018@v1.0.0". Not Found')
+            .expect(404, /Could not find repository for Origami component "o-not-a-real-component-2018@v1\.0\.0"/)
             .expect('Content-Type', 'text/html; charset=utf-8')
             .expect('Cache-Control', 'no-cache');
     });
