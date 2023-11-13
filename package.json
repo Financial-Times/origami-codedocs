@@ -21,6 +21,7 @@
   "dependencies": {
     "@financial-times/origami-repo-data-client": "1.7.2",
     "@sentry/serverless": "^7.36.0",
+    "aws-sdk": "^2.1494.0",
     "decompress": "4.2.1",
     "execa": "4.0.3",
     "get-npm-tarball-url": "^2.0.2",

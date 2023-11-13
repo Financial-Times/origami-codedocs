@@ -98,7 +98,6 @@ package:
     - .terraform/**
     - .vscode/**
     - fastly/**
-    - node_modules/aws-sdk/**
     - test/integration/**
     - .editorconfig
     - .eslintrc.js
