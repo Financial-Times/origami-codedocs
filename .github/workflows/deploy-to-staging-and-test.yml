@@ -6,12 +6,7 @@ env:
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   CODEDOCS_API_KEY: ${{ secrets.CODEDOCS_API_KEY }}
   CODEDOCS_API_KEY_NAME: ${{ secrets.CODEDOCS_API_KEY_NAME }}
-  REPO_DATA_API_KEY: ${{ secrets.REPO_DATA_API_KEY }}
-  REPO_DATA_API_SECRET: ${{ secrets.REPO_DATA_API_SECRET }}
-  SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
   SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
-  SENTRY_ORGANISATION: ${{ secrets.SENTRY_ORGANISATION }}
-  SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
   FASTLY_PROD: ${{ secrets.FASTLY_PROD }}
   FASTLY_SERVICE_PROD: ${{ secrets.FASTLY_SERVICE_PROD }}
   FASTLY_BACKEND_NAME_PROD: ${{ secrets.FASTLY_BACKEND_NAME_PROD }}
@@ -21,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@0.5.0
+        uses: styfle/cancel-workflow-action@0.9.0
         with:
           access_token: ${{ github.token }}
       - name: Turnstyle
@@ -31,11 +26,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/checkout@v2
-      - name: Use Node.js 10.x
-        uses: actions/setup-node@v2.1.1
+      - name: Use Node.js
+        uses: actions/setup-node@v2.1.5
         with:
-          node-version: 10.x
-      - uses: actions/cache@v2
+          node-version: 18.x
+      - uses: actions/cache@v2.1.5
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}

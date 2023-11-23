@@ -23,7 +23,7 @@ Generates JSDoc and SassDoc json for Origami components.
 
 ## Requirements
 
-Running Origami Codedocs requires [Node.js] 10.x and [npm].
+Running Origami Codedocs requires [Node.js] 14.x and [npm].
 
 ## Running Locally
 
@@ -155,7 +155,7 @@ npx serverless deploy --stage dev --region eu-west-1
 
 This is likely due to the Fastly API key expiring. Create a new personal api key in Fastly with access to the `origami-codedocs.in.ft.com` service, and add this environment variable to CI.
 
-### Integration tests are failing due to forbidden requests.
+### Integration tests are failing due to forbidden requests
 
 If the service returns `403 "Forbidden"` errors when running integration tests, it is likely the `CODEDOCS_API_KEY` environment variable is incorrect.
 

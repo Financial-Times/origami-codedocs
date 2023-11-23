@@ -3,13 +3,13 @@
 const got = require('got');
 const AWS = require('aws-sdk');
 const getRepo = require('../lib/get-repo');
-const Raven = require('raven');
-const RavenLambdaWrapper = require('serverless-sentry-lib');
+const Sentry = require('../lib/sentry');
+const getNpmTarballUrl = require('get-npm-tarball-url').default;
 const env = process.env;
 
 const s3 = new AWS.S3({
-    accessKeyId: env.AWS_ACCESS_ID,
-    secretAccessKey: env.AWS_SECRET
+    accessKeyId: env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: env.AWS_SECRET_ACCESS_KEY
 });
 
 const bucket = env.AWS_DOCLET_BUCKET;
@@ -38,9 +38,9 @@ const health = {
             id: 'github-repos-availability',
             ok: true,
             name: 'Able to reach the Github repos API',
-            severity: 2,
-            businessImpact: 'Reduced developer productivity.',
-            technicalSummary: 'Can not reach the Github api. To generate documentation for Origami components, component code first is downloaded from Github as a tarball.',
+            severity: 3,
+            businessImpact: 'Minor risk of reduced developer productivity.',
+            technicalSummary: 'Can not reach the Github api. To generate documentation for old versions of Origami components, component code first is downloaded from Github as a tarball.',
             panicGuide: 'Check [Github\'s status](https://status.github.com/messages), and confirm the Github API has not changed.',
             checkOutput: 'None',
             lastUpdated: new Date()
@@ -52,10 +52,21 @@ const health = {
             severity: 2,
             businessImpact: 'Reduced developer productivity.',
             technicalSummary: 'Can not download Origami component information for a given version from the [Origami Repo Data service](https://origami-repo-data.ft.com/v1).',
-            panicGuide: 'Check the [health status of the Origami Repo Data service](https://origami-repo-data.ft.com/__health) and that the keys to access the service are valid "REPO_DATA_API_KEY" and "REPO_DATA_API_KEY".',
+            panicGuide: 'Check the [health status of the Origami Repo Data service](https://origami-repo-data.ft.com/__health).',
             checkOutput: 'None',
             lastUpdated: new Date()
-        }
+        },
+        {
+            id: 'npm-tarball-availability',
+            ok: true,
+            name: 'Able to reach the npm package tarball endpoint',
+            severity: 2,
+            businessImpact: 'Reduced developer productivity.',
+            technicalSummary: 'Can not download npm package tarballs. To generate documentation for recent releases of Origami components, component code first is downloaded from npm as a tarball.',
+            panicGuide: 'Check [npm\'s status](https://status.npmjs.org/), and confirm the NPM API has not changed - see the npm package "get-npm-tarball-url" which is used to resolve the correct endpoint.',
+            checkOutput: 'None',
+            lastUpdated: new Date()
+        },
     ]
 };
 
@@ -70,9 +81,9 @@ function secondsSince(previousTime) {
 }
 
 const githubUrl = `https://api.github.com/repos/Financial-Times/${testComponent}/tarball/${testComponentVersion}`;
-const githubTimeout = 20000;
+const apiEndpointTimeout = 20000;
 
-exports.handler = RavenLambdaWrapper.handler(Raven, async (event) => {
+exports.handler = Sentry.AWSLambda.wrapHandler(async (event) => {
     let runThrottledTests = false;
     if (lastCheck === null || secondsSince(lastCheck) > 60) {
         lastCheck = Date.now();
@@ -97,7 +108,7 @@ exports.handler = RavenLambdaWrapper.handler(Raven, async (event) => {
             health.checks[1].lastUpdated = new Date();
             await got.head(githubUrl, {
                 timeout: {
-                    response: githubTimeout
+                    response: apiEndpointTimeout
                 },
                 headers: { 'User-Agent': 'OrigamiCodedocsService' }
             });
@@ -106,9 +117,31 @@ exports.handler = RavenLambdaWrapper.handler(Raven, async (event) => {
         gtg = false;
         health.checks[1].ok = false;
         if (response.code === 'ETIMEDOUT') {
-            health.checks[1].checkOutput = `Github URL "${githubUrl}" took longer than ${githubTimeout}ms to respond.`;
+            health.checks[1].checkOutput = `Github URL "${githubUrl}" took longer than ${apiEndpointTimeout}ms to respond.`;
         } else {
             health.checks[1].checkOutput = `Status code of "${response.statusCode}" from Github URL "${githubUrl}".`;
+        }
+    }
+
+    const npmTarballURL = getNpmTarballUrl('@financial-times/o-test-component', '3.1.0');
+    try {
+        // Access npm tarball endpoint
+        if (runThrottledTests) {
+            health.checks[3].lastUpdated = new Date();
+            await got.head(npmTarballURL, {
+                timeout: {
+                    response: apiEndpointTimeout
+                },
+                headers: { 'User-Agent': 'OrigamiCodedocsService' }
+            });
+        }
+    } catch (response) {
+        gtg = false;
+        health.checks[3].ok = false;
+        if (response.code === 'ETIMEDOUT') {
+            health.checks[3].checkOutput = `NPM URL "${npmTarballURL}" took longer than ${apiEndpointTimeout}ms to respond.`;
+        } else {
+            health.checks[3].checkOutput = `Status code of "${response.statusCode}" from NPM URL "${npmTarballURL}".`;
         }
     }
 

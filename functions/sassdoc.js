@@ -2,10 +2,9 @@
 
 const getResponse = require('../lib/codedocs-response');
 const Sassdoc = require('../lib/sassdoc');
-const Raven = require('raven');
-const RavenLambdaWrapper = require('serverless-sentry-lib');
+const Sentry = require('../lib/sentry');
 
-exports.handler = RavenLambdaWrapper.handler(Raven, async (event) => {
+exports.handler = Sentry.AWSLambda.wrapHandler(async (event) => {
     const componentKey = decodeURIComponent(event.pathParameters.componentId);
     return await getResponse(componentKey, new Sassdoc);
 });
