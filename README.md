@@ -4,14 +4,22 @@ Generates JSDoc and SassDoc json for Origami components.
 
 ## Table Of Contents
 
-- [Requirements](#requirements)
-- [Running Locally](#running-locally)
-- [Configuration](#configuration)
-- [Operational Documentation](#operational-documentation)
-- [Testing](#testing)
-- [Deployment](#deployment)
-- [Monitoring](#monitoring)
-- [Trouble-Shooting](#trouble-shooting)
+- [Origami CodeDocs ](#origami-codedocs-)
+  - [Table Of Contents](#table-of-contents)
+  - [Requirements](#requirements)
+  - [Running Locally](#running-locally)
+  - [Configuration](#configuration)
+    - [Required everywhere](#required-everywhere)
+    - [Required in CI](#required-in-ci)
+  - [Operational Documentation](#operational-documentation)
+  - [Testing](#testing)
+  - [Deployment](#deployment)
+  - [Monitoring](#monitoring)
+  - [Trouble-Shooting](#trouble-shooting)
+    - [Upating Fastly failed during a production deploy?](#upating-fastly-failed-during-a-production-deploy)
+    - [Integration tests are failing due to forbidden requests.](#integration-tests-are-failing-due-to-forbidden-requests)
+    - [Forbidden requests.](#forbidden-requests)
+  - [Licence](#licence)
 
 ## Requirements
 
@@ -35,7 +43,17 @@ Now we can access the app over HTTP on port `3000`: [http://localhost:3000/](htt
 
 ## Configuration
 
-We configure Origami CodeDocs using environment variables. In development, configurations are set in a `.env` file. In production, these are set during deployment through CI config.
+We configure Origami CodeDocs using environment variables. In development, configurations are set from [Doppler CLI](https://docs.doppler.com/docs/install-cli) (You might need to request contributor access). Login in Doppler and run the following command to setup Doppler within the repo:
+
+```sh
+doppler setup
+```
+
+Setup will ask you to select the project you want to use, select `origami-codedocs` and then select the dev environment. Once setup is complete you can download the secrets to your local environment by running:
+
+```sh
+doppler secrets download --format --no-file > .env
+```
 
 ### Required everywhere
 
@@ -43,14 +61,11 @@ We configure Origami CodeDocs using environment variables. In development, confi
 - AWS_ACCESS_KEY_ID
 - AWS_SECRET_ACCESS_KEY
 - NODE_ENV
-- REPO_DATA_API_KEY
-- REPO_DATA_API_SECRET
 - SENTRY_DSN
-- SENTRY_ORGANISATION
-- SENTRY_PROJECT
-- SENTRY_AUTH_TOKEN
 - CODEDOCS_API_KEY_NAME
 - CODEDOCS_API_KEY
+
+In production, these are set during deployment through CI config.
 
 ### Required in CI
 
@@ -65,11 +80,6 @@ The following environment variables are also required in CI for a production dep
 - AWS_ACCOUNT_ID_PROD
 - AWS_ACCESS_KEY_ID_PROD
 - AWS_SECRET_ACCESS_KEY_PROD
-- REPO_DATA_API_KEY_PROD
-- REPO_DATA_API_SECRET_PROD
-- SENTRY_DSN_PROD
-- SENTRY_AUTH_TOKEN_PROD
-- SENTRY_PROJECT_PROD
 
 These production environment variables are mapped during a production deploy e.g. `AWS_ACCOUNT_ID` is automatically set to the value of `AWS_ACCOUNT_ID_PROD`. We do this as, at the time of writing, CI contexts are not available to users without root permissions.
 
