@@ -17,7 +17,7 @@ Generates JSDoc and SassDoc json for Origami components.
   - [Monitoring](#monitoring)
   - [Trouble-Shooting](#trouble-shooting)
     - [Upating Fastly failed during a production deploy?](#upating-fastly-failed-during-a-production-deploy)
-    - [Integration tests are failing due to forbidden requests](#integration-tests-are-failing-due-to-forbidden-requests)
+    - [Integration tests are failing due to forbidden requests.](#integration-tests-are-failing-due-to-forbidden-requests)
     - [Forbidden requests.](#forbidden-requests)
   - [Licence](#licence)
 
@@ -43,7 +43,17 @@ Now we can access the app over HTTP on port `3000`: [http://localhost:3000/](htt
 
 ## Configuration
 
-We configure Origami CodeDocs using environment variables. In development, configurations are set in a `.env` file. In production, these are set during deployment through CI config.
+We configure Origami CodeDocs using environment variables. In development, configurations are set from [Doppler CLI](https://docs.doppler.com/docs/install-cli) (You might need to request contributor access). Login in Doppler and run the following command to setup Doppler within the repo:
+
+```sh
+doppler setup
+```
+
+Setup will ask you to select the project you want to use, select `origami-codedocs` and then select the dev environment. Once setup is complete you can download the secrets to your local environment by running:
+
+```sh
+doppler secrets download --format --no-file > .env
+```
 
 ### Required everywhere
 
@@ -54,6 +64,8 @@ We configure Origami CodeDocs using environment variables. In development, confi
 - SENTRY_DSN
 - CODEDOCS_API_KEY_NAME
 - CODEDOCS_API_KEY
+
+In production, these are set during deployment through CI config.
 
 ### Required in CI
 
