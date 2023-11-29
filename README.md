@@ -49,7 +49,7 @@ We configure Origami CodeDocs using environment variables. In development, confi
 doppler setup
 ```
 
-Setup will ask you to select the project you want to use, select `origami-codedocs` and then select the dev environment. Once setup is complete you can download the secrets to your local environment by running:
+Setup will ask you to select the project you want to use, select `origami-codedocs` and then select the `local` environment. Once setup is complete you can download the secrets to your local environment by running:
 
 ```sh
 doppler secrets download --format --no-file > .env
