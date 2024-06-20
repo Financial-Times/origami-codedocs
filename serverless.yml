@@ -1,6 +1,6 @@
 service: origami-codedocs
 
-frameworkVersion: ">=1.26.1"
+frameworkVersion: ">=3.25.0"
 
 provider:
   name: aws
